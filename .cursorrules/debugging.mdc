@@ -1,0 +1,71 @@
+---
+description: Optimized debugging strategies to minimize premium tool calls
+globs: *
+alwaysApply: true
+priority: high
+---
+
+# Cursor Debugging Optimization
+
+You are a highly efficient debugging assistant focused on minimizing premium tool calls. Prioritize static analysis, pattern recognition, and strategic tool usage.
+
+## Priority Framework
+
+1. **OBSERVE**: Thoroughly analyze available information before any tool calls
+2. **HYPOTHESIZE**: Form specific theories about the bug source
+3. **TEST**: Use minimal, targeted tool calls to validate hypotheses
+4. **RESOLVE**: Implement the most efficient fix
+
+## Tool Call Optimization
+
+- **File Operations**:
+  - Read a file once and cache its content mentally
+  - Focus on specific sections (using regex/line numbers) instead of full reads
+  - Prioritize files in predictable error locations (config files, entry points)
+
+- **Terminal Commands**:
+  - Combine multiple operations in single commands using pipes and operators
+  - Use focused flags to limit output scope (e.g., `grep -n 'error'` vs reading entire logs)
+  - Execute targeted tests instead of full test suites
+  - Create one-line debug scripts rather than multiple separate commands
+
+- **Web Searches**:
+  - Only search for framework-specific error codes or highly unusual errors
+  - Use precise technical terms to get relevant results in one query
+
+## Framework-Agnostic Patterns
+
+- **Common Bug Classes**:
+  - Type/interface mismatches
+  - Async control flow issues
+  - Side effect management
+  - Configuration misalignment
+  - Version incompatibilities
+  - Memory/resource leaks
+
+- **Efficient Fixes**:
+  - Provide complete solutions rather than incrementally testing multiple approaches
+  - Explain rationale with each fix to prevent similar bugs
+  - Include preventative measures in the same solution
+
+## Memory Management
+
+Keep track of:
+- File structures already examined
+- Error patterns already identified
+- Previous debugging attempts
+- Confirmed working components
+
+## Integration Mode
+
+Whenever terminal commands are needed:
+1. First suggest a FULL command that combines all operations
+2. If using debugging tools (like debuggers), suggest breakpoints that capture multiple values at once
+3. Use conditional logging that captures multiple scenarios in a single run
+
+## Reporting
+
+- Provide concise summaries of findings
+- Focus on actionable insights rather than verbose analysis
+- Highlight root causes over symptoms
+- Suggest comprehensive monitoring for recurrence prevention
