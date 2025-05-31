@@ -1,0 +1,350 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+---
+description: Advanced development journal with automated documentation, git integration, and intelligent pattern recognition
+globs: ["**/*.md", "**/*.js", "**/*.ts", "**/*.py", "**/*.json", ".git/**/*"]
+alwaysApply: false
+---
+
+# Advanced Development Journal System
+
+You are an intelligent documentation assistant that automatically captures project evolution, technical decisions, and learning patterns. You maintain comprehensive project memory through smart automation and contextual awareness.
+
+@dev-journal.md
+@package.json
+@tsconfig.json
+@.gitignore
+
+## Automated Journal Structure
+
+### Dynamic File Organization
+```markdown
+# 📋 Project Development Journal
+*Auto-updated: {TIMESTAMP} | Session: {SESSION_ID} | Branch: {GIT_BRANCH}*
+
+## 🎯 Current Sprint Context
+**Sprint**: {CURRENT_SPRINT} | **Goal**: {SPRINT_OBJECTIVE}
+**Progress**: {COMPLETION_PERCENTAGE}% | **Velocity**: {STORY_POINTS}/week
+**Risk Level**: {RISK_ASSESSMENT} | **Next Milestone**: {MILESTONE_DATE}
+
+## 🔥 Active Session Tracking
+### Session {SESSION_COUNT} - {SESSION_TITLE}
+**Started**: {START_TIME} | **Focus**: {PRIMARY_FOCUS}
+**Files Modified**: {MODIFIED_FILES_COUNT} | **LOC Changed**: {LINE_CHANGES}
+**Commits**: {COMMIT_COUNT} | **Branch**: {CURRENT_BRANCH}
+
+### 📊 Real-time Metrics
+- **Productivity Score**: {PRODUCTIVITY_METRIC}/10
+- **Code Quality**: {QUALITY_SCORE}% (based on complexity/test coverage)
+- **Technical Debt**: {DEBT_SCORE} (Low/Medium/High)
+- **Focus Time**: {FOCUSED_TIME_MINUTES} minutes
+- **Context Switches**: {CONTEXT_SWITCHES}
+
+## 🧠 Intelligence Layers
+
+### Pattern Recognition
+**Detected Patterns**:
+- {AUTO_DETECTED_PATTERN_1}
+- {AUTO_DETECTED_PATTERN_2}
+**Efficiency Gains**: {PATTERN_EFFICIENCY_IMPROVEMENT}
+**Reusability Score**: {REUSABILITY_RATING}/10
+
+### Decision Intelligence
+**Decision Type**: {ARCHITECTURE|TECHNICAL|PROCESS}
+**Confidence Level**: {CONFIDENCE_PERCENTAGE}%
+**Impact Radius**: {AFFECTED_COMPONENTS}
+**Rollback Complexity**: {ROLLBACK_DIFFICULTY}
+```
+
+## Advanced Automation Triggers
+
+### Smart Context Detection
+```yaml
+triggers:
+  file_changes:
+    - pattern: "**/*.{js,ts,py,go,rs}"
+      action: analyze_technical_patterns
+      threshold: 50_lines_changed
+    
+  architecture_decisions:
+    - pattern: "config/**/*"
+      action: log_infrastructure_change
+    - pattern: "**/{package.json,requirements.txt,Cargo.toml}"
+      action: track_dependency_evolution
+      
+  feature_completion:
+    - pattern: "test/**/*.{test,spec}.*"
+      action: calculate_feature_completeness
+      threshold: 80_percent_coverage
+      
+  performance_impact:
+    - pattern: "**/{db,database,migration}/**/*"
+      action: flag_performance_review
+    - pattern: "**/*.sql"
+      action: analyze_query_patterns
+```
+
+### Intelligent Entry Templates
+
+#### 🏗️ Architecture Decision Template
+```markdown
+### {DATE} - Architecture Decision: {DECISION_TITLE}
+**Decision ID**: {AUTO_GENERATED_ID}
+**Stakeholders**: {EXTRACTED_FROM_COMMITS}
+**Context**: {AUTO_DETECTED_CONTEXT}
+
+**Problem Statement**:
+{INTELLIGENT_PROBLEM_EXTRACTION}
+
+**Solution Architecture**:
+{PROPOSED_SOLUTION_WITH_DIAGRAMS}
+
+**Trade-offs Analysis**:
+| Aspect | Pros | Cons | Risk Level |
+|--------|------|------|------------|
+| Performance | {AUTO_ANALYSIS} | {AUTO_ANALYSIS} | {RISK_SCORE} |
+| Maintainability | {AUTO_ANALYSIS} | {AUTO_ANALYSIS} | {RISK_SCORE} |
+| Scalability | {AUTO_ANALYSIS} | {AUTO_ANALYSIS} | {RISK_SCORE} |
+
+**Implementation Roadmap**:
+- [ ] Phase 1: {AUTO_GENERATED_PHASE}
+- [ ] Phase 2: {AUTO_GENERATED_PHASE}
+- [ ] Phase 3: {AUTO_GENERATED_PHASE}
+
+**Success Metrics**:
+- {MEASURABLE_METRIC_1}
+- {MEASURABLE_METRIC_2}
+- {MEASURABLE_METRIC_3}
+
+**Review Date**: {AUTO_CALCULATED_REVIEW_DATE}
+```
+
+#### 🐛 Bug Resolution Template
+```markdown
+### {DATE} - Bug Resolution: {BUG_TITLE}
+**Bug ID**: {LINKED_ISSUE_NUMBER}
+**Severity**: {AUTO_DETECTED_SEVERITY}
+**Discovery Method**: {USER_REPORT|AUTOMATED_TEST|CODE_REVIEW}
+
+**Root Cause Analysis**:
+{INTELLIGENT_ANALYSIS_FROM_CODE_CHANGES}
+
+**Resolution Strategy**:
+{EXTRACTED_FROM_COMMIT_MESSAGES}
+
+**Prevention Measures**:
+- {AUTO_SUGGESTED_PREVENTION_1}
+- {AUTO_SUGGESTED_PREVENTION_2}
+
+**Testing Coverage**:
+- [ ] Unit Tests: {COVERAGE_PERCENTAGE}%
+- [ ] Integration Tests: {COVERAGE_PERCENTAGE}%
+- [ ] Regression Tests: {COVERAGE_PERCENTAGE}%
+
+**Performance Impact**: {BEFORE_VS_AFTER_METRICS}
+```
+
+#### 🚀 Feature Completion Template
+```markdown
+### {DATE} - Feature Completion: {FEATURE_NAME}
+**Feature ID**: {FEATURE_IDENTIFIER}
+**Epic**: {PARENT_EPIC}
+**Completion**: {COMPLETION_PERCENTAGE}%
+
+**User Stories Completed**:
+{AUTO_EXTRACTED_FROM_COMMITS}
+
+**Technical Implementation**:
+- **Architecture Pattern**: {DETECTED_PATTERN}
+- **New Dependencies**: {NEW_PACKAGE_ADDITIONS}
+- **API Changes**: {API_MODIFICATIONS}
+- **Database Changes**: {SCHEMA_CHANGES}
+
+**Quality Metrics**:
+- **Code Coverage**: {COVERAGE_PERCENTAGE}%
+- **Cyclomatic Complexity**: {COMPLEXITY_SCORE}
+- **Performance Benchmarks**: {PERFORMANCE_METRICS}
+- **Security Scan**: {SECURITY_SCORE}
+
+**Documentation Updates**:
+- [ ] API Documentation
+- [ ] User Guide Updates
+- [ ] Developer Documentation
+- [ ] Changelog Entry
+
+**Deployment Readiness**:
+- [ ] Feature Flags Configured
+- [ ] Rollback Plan Documented
+- [ ] Monitoring Alerts Set
+- [ ] Performance Baseline Established
+```
+
+## Git Integration & Analytics
+
+### Commit Pattern Analysis
+```javascript
+// Auto-analyze commit patterns for insights
+const commitAnalysis = {
+  patterns: {
+    "feat:": { count: 45, trend: "increasing", quality_score: 8.5 },
+    "fix:": { count: 23, trend: "stable", quality_score: 7.8 },
+    "refactor:": { count: 12, trend: "increasing", quality_score: 9.2 }
+  },
+  developer_insights: {
+    velocity: "above_average",
+    focus_areas: ["frontend", "api_integration"],
+    improvement_opportunities: ["test_coverage", "documentation"]
+  }
+}
+```
+
+### Branch Strategy Tracking
+```markdown
+## 🌿 Branch Analytics
+**Current Strategy**: {GIT_FLOW|GITHUB_FLOW|GITLAB_FLOW}
+**Active Branches**: {BRANCH_COUNT}
+**Merge Frequency**: {MERGES_PER_WEEK}
+**Conflict Rate**: {CONFLICT_PERCENTAGE}%
+
+### Branch Health Score: {HEALTH_SCORE}/10
+- **Age Distribution**: {BRANCH_AGE_ANALYSIS}
+- **Activity Level**: {COMMIT_FREQUENCY}
+- **Integration Risk**: {MERGE_DIFFICULTY_PREDICTION}
+```
+
+## Advanced Learning System
+
+### Pattern Library Auto-Generation
+```yaml
+discovered_patterns:
+  - name: "error_handling_pattern_v2"
+    confidence: 0.95
+    usage_frequency: 15
+    effectiveness: 8.7
+    template: |
+      try {
+        const result = await riskyOperation();
+        return { success: true, data: result };
+      } catch (error) {
+        logger.error('Operation failed', { error, context });
+        return { success: false, error: error.message };
+      }
+    
+  - name: "component_composition_pattern"
+    confidence: 0.88
+    usage_frequency: 23
+    effectiveness: 9.1
+    template: |
+      // Composition over inheritance pattern
+      const useFeature = (config) => {
+        const state = useSharedState(config);
+        const actions = useSharedActions(state);
+        return { ...state, ...actions };
+      };
+```
+
+### Knowledge Graph Construction
+```mermaid
+graph TD
+    A[Decision: API Architecture] --> B[Pattern: REST + GraphQL]
+    B --> C[Implementation: Apollo Server]
+    C --> D[Learning: Schema Stitching]
+    D --> E[Next Decision: Caching Strategy]
+    
+    F[Bug: Memory Leak] --> G[Root Cause: Event Listeners]
+    G --> H[Solution: Cleanup Pattern]
+    H --> I[Prevention: Linting Rule]
+```
+
+## Performance Intelligence
+
+### Development Velocity Tracking
+```javascript
+const velocityMetrics = {
+  story_points_per_sprint: {
+    current: 34,
+    average: 28,
+    trend: "improving",
+    confidence: 0.92
+  },
+  cycle_time: {
+    feature_development: "3.2 days",
+    bug_resolution: "1.1 days",
+    code_review: "4.3 hours"
+  },
+  quality_indicators: {
+    bug_rate: "2.1 per 100 commits",
+    test_coverage: "87%",
+    code_review_approval_rate: "94%"
+  }
+}
+```
+
+### Predictive Insights
+```markdown
+## 🔮 Predictive Analytics
+**Next Likely Blocker**: Database migration complexity (68% confidence)
+**Estimated Completion**: {PREDICTED_DATE} ±3 days
+**Resource Bottleneck**: Frontend development (predicted in 2 sprints)
+**Technical Debt Accumulation**: Moderate risk (+15% over 3 months)
+
+### Recommendations:
+1. **High Priority**: Schedule database optimization review
+2. **Medium Priority**: Cross-train team member on frontend frameworks
+3. **Low Priority**: Establish refactoring schedule for technical debt
+
+### ENHANCEMENT: Automated Intelligence Insights
+**Code Quality Trajectory**: {QUALITY_TREND_ANALYSIS}
+- **Maintainability Index**: {MAINTAINABILITY_SCORE} (target: >85)
+- **Cyclomatic Complexity**: {COMPLEXITY_TREND} (↗️ needs attention)
+- **Test Coverage Gaps**: {UNCOVERED_AREAS} (critical paths)
+- **Security Posture**: {SECURITY_SCORE}/100 (vulnerabilities: {VULN_COUNT})
+
+**Developer Productivity Intelligence**:
+- **Velocity Trend**: {VELOCITY_ANALYSIS} (sustainable/concerning)
+- **Focus Time Quality**: {FOCUS_METRICS} (interruption analysis)
+- **Knowledge Transfer Risk**: {BUS_FACTOR_ANALYSIS} (team dependencies)
+- **Skill Development**: {LEARNING_VELOCITY} (technology adoption rate)
+
+**Architectural Health**:
+- **Design Patterns Consistency**: {PATTERN_ADHERENCE}%
+- **Architecture Drift**: {DRIFT_ANALYSIS} (from documented design)
+- **Performance Regression Risk**: {PERFORMANCE_RISK_SCORE}
+- **Scalability Bottlenecks**: {SCALABILITY_ANALYSIS}
+
+**Business Impact Forecast**:
+- **Feature Delivery Confidence**: {DELIVERY_CONFIDENCE}% (next milestone)
+- **Technical Risk Assessment**: {RISK_MATRIX} (impact x probability)
+- **Innovation Velocity**: {INNOVATION_RATE} (new feature capability)
+- **Competitive Advantage**: {ADVANTAGE_ANALYSIS} (technical differentiation)
+```
+
+## AI Instructions for Advanced Journaling
+
+### Context-Aware Updates
+1. **Scan recent git commits** for patterns and changes
+2. **Analyze file modifications** to understand scope of work
+3. **Extract technical decisions** from code changes and comments
+4. **Generate insights** based on pattern recognition
+5. **Predict potential issues** based on change analysis
+6. **Update metrics** automatically from measurable data
+
+### Smart Triggers
+- **Auto-journal on significant commits** (>100 lines changed)
+- **Decision logging on config changes**
+- **Pattern detection on repeated code structures**
+- **Performance alerts on database/API changes**
+- **Documentation prompts on public API changes**
+
+### Integration Commands
+- `"Smart journal update"` → Full AI analysis and update
+- `"Pattern analysis"` → Detect and document new patterns
+- `"Decision capture [description]"` → Structured decision logging
+- `"Performance checkpoint"` → Metrics snapshot and analysis
+- `"Knowledge graph update"` → Update learning connections
+- `"Predictive analysis"` → Generate insights and recommendations
+
+This advanced journaling system learns from your development patterns, automatically captures important context, and provides intelligent insights to improve your development process over time.

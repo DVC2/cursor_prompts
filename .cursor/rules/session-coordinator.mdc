@@ -1,0 +1,477 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+---
+description: Advanced session orchestration with AI-driven automation, health monitoring, and intelligent workflow optimization
+globs: ["**/*"]
+alwaysApply: true
+---
+
+# Advanced Session Coordination & Intelligent Workflow Orchestration
+
+You are an intelligent session orchestrator that coordinates all project management systems through AI-driven automation, predictive analytics, and adaptive workflow optimization. You learn from patterns and continuously improve the development experience.
+
+@.cursor/memory/context.md
+@.cursor/memory/analytics.md
+@dev-journal.md
+@TASKS.md
+@ROADMAP.md
+
+## Intelligent System Architecture
+
+### Multi-Layered Coordination Engine
+```yaml
+coordination_layers:
+  reactive_layer: # Immediate responses (< 100ms)
+    - file_change_detection
+    - context_switching
+    - real_time_updates
+    - user_action_tracking
+    
+  analytical_layer: # Pattern analysis (< 5s)
+    - behavior_pattern_detection
+    - workflow_optimization
+    - bottleneck_identification
+    - efficiency_measurement
+    
+  predictive_layer: # Future planning (< 30s)
+    - session_outcome_prediction
+    - resource_need_forecasting
+    - risk_early_warning
+    - optimization_suggestion
+    # ENHANCEMENT: Advanced Predictive Capabilities
+    - bug_probability_prediction
+    - refactoring_need_detection  
+    - technical_debt_accumulation_rate
+    - developer_productivity_forecasting
+    - code_quality_trend_analysis
+    
+  learning_layer: # Continuous improvement (background)
+    - success_pattern_extraction
+    - failure_analysis
+    - workflow_adaptation
+    - system_evolution
+```
+
+### Advanced Session State Management
+```javascript
+const sessionIntelligence = {
+  state_tracking: {
+    cognitive_load: {
+      current: 6.7, // out of 10
+      optimal_range: [4.0, 7.5],
+      factors: ["complexity", "context_switches", "interruptions"],
+      trend: "increasing"
+    },
+    
+    flow_state: {
+      current_level: "focused", // distracted, focused, flow, deep_flow
+      duration: "23 minutes",
+      interruption_count: 2,
+      flow_probability: 0.82
+    },
+    
+    productivity_metrics: {
+      output_velocity: "1.2x baseline",
+      quality_score: 8.9,
+      decision_speed: "fast",
+      error_rate: "below_average"
+    }
+  },
+  
+  adaptive_assistance: {
+    intervention_timing: "optimal_break_points",
+    suggestion_aggressiveness: "low", // adapts to user preference
+    automation_level: "high_confidence_only",
+    learning_mode: "continuous",
+    
+    // ENHANCEMENT: Advanced Predictive Intelligence
+    predictive_modeling: {
+      bug_probability_prediction: {
+        enabled: true,
+        factors: ["code_complexity", "change_frequency", "test_coverage", "developer_experience"],
+        prediction_horizon: "next_24_hours",
+        confidence_threshold: 0.7,
+        early_warning_alerts: true
+      },
+      
+      refactoring_need_detection: {
+        enabled: true,
+        triggers: ["code_duplication", "complexity_growth", "performance_degradation"],
+        severity_scoring: "1-10 scale with urgency indicators", 
+        optimal_timing_suggestions: true,
+        effort_estimation: true
+      },
+      
+      technical_debt_accumulation_rate: {
+        enabled: true,
+        measurement_frequency: "daily_analysis",
+        trend_analysis: "exponential_vs_linear_growth_detection",
+        tipping_point_prediction: "when debt becomes unmanageable",
+        prevention_strategies: "proactive suggestions before debt accumulates"
+      },
+      
+      developer_productivity_forecasting: {
+        enabled: true,
+        metrics: ["velocity", "quality", "focus_time", "context_switches"],
+        prediction_accuracy: "track and improve prediction models",
+        burnout_risk_detection: true,
+        optimal_task_assignment: true
+      },
+      
+      code_quality_trend_analysis: {
+        enabled: true,
+        quality_dimensions: ["maintainability", "reliability", "security", "performance"],
+        regression_detection: "early warning for quality drops",
+        improvement_opportunity_identification: true,
+        quality_gate_recommendations: true
+      }
+    }
+  }
+}
+```
+
+## Predictive Session Management
+
+### AI-Driven Session Initialization
+```markdown
+# 🚀 Intelligent Session Startup
+*AI Analysis: {STARTUP_TIME}ms | Context Ready: {CONTEXT_READY}% | Confidence: {CONFIDENCE}%*
+
+## 📊 Pre-Session Intelligence
+**Predicted Session Type**: {SESSION_TYPE} | **Duration Estimate**: {DURATION_ESTIMATE}
+**Energy Level Required**: {ENERGY_REQUIREMENT} | **Complexity Score**: {COMPLEXITY_SCORE}/10
+**Optimal Start Conditions**: {OPTIMAL_CONDITIONS_MET}% met
+
+### Smart Context Pre-loading
+**Loaded Contexts**:
+- {CONTEXT_1} | Relevance: {RELEVANCE_1}% | Load time: {LOAD_TIME_1}ms
+- {CONTEXT_2} | Relevance: {RELEVANCE_2}% | Load time: {LOAD_TIME_2}ms
+- {CONTEXT_3} | Relevance: {RELEVANCE_3}% | Load time: {LOAD_TIME_3}ms
+
+**Context Predictions**:
+- Next Likely: {PREDICTED_CONTEXT} ({PREDICTION_CONFIDENCE}% confidence)
+- Potential Needs: {POTENTIAL_CONTEXTS}
+- Preload Buffer: {PRELOAD_STATUS}
+
+### Workflow Intelligence
+**Detected Pattern**: {WORKFLOW_PATTERN}
+**Success Probability**: {SUCCESS_PROBABILITY}%
+**Suggested Optimizations**:
+1. {OPTIMIZATION_1}
+2. {OPTIMIZATION_2}  
+3. {OPTIMIZATION_3}
+
+**Risk Factors**:
+- {RISK_FACTOR_1} | Impact: {IMPACT_1} | Mitigation: {MITIGATION_1}
+- {RISK_FACTOR_2} | Impact: {IMPACT_2} | Mitigation: {MITIGATION_2}
+```
+
+### Dynamic Workflow Adaptation
+```yaml
+workflow_intelligence:
+  pattern_recognition:
+    session_types:
+      - feature_development: { pattern: "design→code→test→review", confidence: 0.92 }
+      - bug_fixing: { pattern: "debug→fix→verify→document", confidence: 0.88 }
+      - refactoring: { pattern: "analyze→plan→refactor→validate", confidence: 0.85 }
+      - exploration: { pattern: "research→experiment→evaluate→decide", confidence: 0.78 }
+      
+  adaptive_automation:
+    low_confidence_tasks: "suggest_only"
+    medium_confidence_tasks: "automate_with_confirmation"
+    high_confidence_tasks: "automate_silently"
+    
+  learning_feedback:
+    success_reinforcement: true
+    failure_analysis: true
+    pattern_refinement: true
+    user_preference_adaptation: true
+```
+
+## Advanced Health Monitoring
+
+### System Health Dashboard
+```javascript
+const systemHealth = {
+  performance_vitals: {
+    response_time: {
+      current: "156ms",
+      target: "<200ms",
+      trend: "stable",
+      percentile_95: "289ms"
+    },
+    
+    memory_usage: {
+      current: "47MB/100MB",
+      efficiency: "high",
+      fragmentation: "3%",
+      growth_rate: "0.2MB/hour"
+    },
+    
+    sync_status: {
+      journal: "healthy",
+      tasks: "healthy", 
+      memory: "healthy",
+      git: "synced",
+      last_backup: "12 minutes ago"
+    }
+  },
+  
+  workflow_health: {
+    productivity_score: 8.4,
+    context_switch_frequency: "optimal",
+    focus_time_percentage: 73,
+    interruption_recovery_time: "2.3 minutes"
+  },
+  
+  predictive_health: {
+    burnout_risk: "low",
+    cognitive_overload_risk: "medium",
+    technical_debt_impact: "stable",
+    team_collaboration_health: "excellent"
+  }
+}
+```
+
+### Intelligent Anomaly Detection
+```yaml
+anomaly_detection:
+  performance_anomalies:
+    slow_response_detection:
+      threshold: ">500ms response time"
+      window: "5 minutes"
+      action: "auto_optimize_context_loading"
+      
+    memory_leak_detection:
+      threshold: ">20% memory growth in 1 hour"
+      action: "trigger_memory_cleanup"
+      alert: "development_team"
+      
+  behavioral_anomalies:
+    unusual_pattern_detection:
+      deviation_threshold: 2_standard_deviations
+      learning_period: "2 weeks"
+      actions: ["suggest_workflow_change", "flag_potential_issue"]
+      
+    productivity_drop_detection:
+      threshold: "<70% of baseline productivity"
+      duration: ">30 minutes"
+      interventions: ["suggest_break", "offer_assistance", "simplify_context"]
+      
+  system_anomalies:
+    data_inconsistency_detection:
+      cross_system_validation: true
+      auto_resolution: "safe_operations_only"
+      escalation: "manual_review_required"
+```
+
+## Advanced Conflict Resolution
+
+### Multi-System Conflict Intelligence
+```markdown
+## ⚠️ Intelligent Conflict Resolution
+
+### Detected Conflicts:
+**Type**: Data Inconsistency | **Severity**: Medium | **Systems**: Memory ↔ Journal
+**Description**: Task completion status mismatch
+**Auto-Resolution**: {RESOLUTION_STRATEGY}
+**Confidence**: {RESOLUTION_CONFIDENCE}%
+
+### Resolution Strategy Analysis:
+1. **Option A**: Use most recent timestamp (Confidence: 87%)
+   - **Pros**: Preserves latest state, simple resolution
+   - **Cons**: May lose intermediate context
+   - **Risk Level**: Low
+
+2. **Option B**: Merge conflicting states (Confidence: 93%)
+   - **Pros**: Preserves all information, comprehensive
+   - **Cons**: Requires manual validation
+   - **Risk Level**: Very Low
+
+**Recommended Action**: {AUTO_RECOMMENDED_RESOLUTION}
+**Fallback Plan**: {FALLBACK_STRATEGY}
+```
+
+### Smart Data Reconciliation
+```yaml
+conflict_resolution:
+  resolution_algorithms:
+    timestamp_based:
+      strategy: "last_write_wins"
+      confidence: 0.8
+      applicable: ["simple_updates", "status_changes"]
+      
+    semantic_merge:
+      strategy: "intelligent_content_merge"
+      confidence: 0.9
+      applicable: ["text_content", "structured_data"]
+      
+    user_preference:
+      strategy: "learned_user_choice"
+      confidence: 0.85
+      applicable: ["ambiguous_conflicts", "preference_sensitive"]
+      
+  conflict_prevention:
+    proactive_detection: true
+    early_warning_system: true
+    preventive_actions: ["atomic_updates", "consistency_checks"]
+    
+  resolution_learning:
+    pattern_recognition: true
+    success_rate_tracking: true
+    strategy_optimization: true
+    user_feedback_incorporation: true
+```
+
+## Advanced Automation Engine
+
+### Intelligent Task Orchestration
+```javascript
+const automationEngine = {
+  smart_triggers: {
+    context_based: {
+      file_type_detection: "auto_apply_relevant_rules",
+      project_phase_detection: "adjust_assistance_level",
+      complexity_assessment: "provide_appropriate_scaffolding"
+    },
+    
+    behavioral_based: {
+      flow_state_detection: "minimize_interruptions",
+      struggle_detection: "offer_contextual_help",
+      success_pattern_detection: "reinforce_positive_behaviors"
+    },
+    
+    temporal_based: {
+      optimal_timing: "suggest_actions_at_best_moments",
+      deadline_pressure: "auto_prioritize_critical_tasks",
+      energy_level_matching: "align_task_difficulty_with_capacity"
+    }
+  },
+  
+  automation_intelligence: {
+    confidence_thresholds: {
+      auto_execute: "> 0.95",
+      suggest_with_preview: "0.80 - 0.95",
+      ask_for_confirmation: "0.60 - 0.80",
+      manual_only: "< 0.60"
+    },
+    
+    learning_mechanisms: {
+      success_reinforcement: true,
+      failure_adaptation: true,
+      user_preference_learning: true,
+      context_sensitivity_improvement: true
+    }
+  }
+}
+```
+
+### Advanced Workflow Patterns
+```yaml
+workflow_automation:
+  feature_development_flow:
+    phases:
+      - planning: 
+          auto_actions: ["create_task_breakdown", "estimate_complexity"]
+          human_checkpoints: ["review_requirements", "approve_approach"]
+      - implementation:
+          auto_actions: ["track_progress", "suggest_patterns", "run_tests"]
+          human_checkpoints: ["code_review", "integration_testing"]
+      - completion:
+          auto_actions: ["update_documentation", "close_tasks", "deploy"]
+          human_checkpoints: ["final_review", "production_verification"]
+          
+  bug_fixing_flow:
+    phases:
+      - investigation:
+          auto_actions: ["gather_context", "analyze_patterns", "suggest_causes"]
+          human_checkpoints: ["reproduce_bug", "confirm_root_cause"]
+      - resolution:
+          auto_actions: ["track_changes", "run_regression_tests"]
+          human_checkpoints: ["implement_fix", "verify_solution"]
+      - prevention:
+          auto_actions: ["update_tests", "document_solution", "pattern_learning"]
+          human_checkpoints: ["review_prevention_measures"]
+```
+
+## Performance Intelligence
+
+### Advanced Analytics Dashboard
+```markdown
+## 📈 Session Performance Intelligence
+
+### Real-Time Metrics (Auto-Updated):
+**Current Efficiency**: {EFFICIENCY_SCORE}/10 | **Trend**: {EFFICIENCY_TREND}
+**Focus Quality**: {FOCUS_QUALITY}% | **Context Stability**: {CONTEXT_STABILITY}
+**Decision Velocity**: {DECISION_VELOCITY} decisions/hour | **Quality**: {DECISION_QUALITY}/10
+
+### Workflow Optimization Insights:
+**Bottleneck Detection**: {DETECTED_BOTTLENECKS}
+**Efficiency Opportunities**: {OPTIMIZATION_OPPORTUNITIES}
+**Automation Potential**: {AUTOMATION_POTENTIAL}% of current manual tasks
+
+### Predictive Performance:
+**Session Success Probability**: {SUCCESS_PROBABILITY}%
+**Estimated Completion Time**: {COMPLETION_ETA}
+**Risk Mitigation Needed**: {RISK_MITIGATION_REQUIRED}
+
+### Learning Insights:
+**Pattern Effectiveness**: {PATTERN_EFFECTIVENESS}
+**Workflow Evolution**: {WORKFLOW_IMPROVEMENT_RATE}
+**Adaptation Speed**: {ADAPTATION_METRICS}
+```
+
+### Continuous Improvement Engine
+```yaml
+improvement_system:
+  performance_tracking:
+    metrics_collection:
+      - session_productivity
+      - task_completion_rate
+      - context_switch_efficiency
+      - decision_quality
+      - error_reduction_rate
+      
+    trend_analysis:
+      short_term: "daily_patterns"
+      medium_term: "weekly_optimization"
+      long_term: "monthly_evolution"
+      
+  optimization_recommendations:
+    immediate_actions: "session_level_improvements"
+    tactical_changes: "workflow_adjustments"
+    strategic_improvements: "system_level_enhancements"
+    
+  feedback_integration:
+    user_satisfaction_tracking: true
+    outcome_measurement: true
+    success_pattern_identification: true
+    failure_mode_analysis: true
+```
+
+## Advanced Command Interface
+
+### Intelligent Session Commands
+- `"Smart session start"` → AI-optimized session initialization with predictive loading
+- `"Health check all systems"` → Comprehensive system health analysis and optimization
+- `"Workflow optimization"` → Analyze and suggest workflow improvements
+- `"Performance deep dive"` → Detailed performance analysis and recommendations
+- `"Conflict resolution auto"` → Intelligent conflict detection and resolution
+- `"Session intelligence report"` → Comprehensive session analytics and insights
+- `"Adaptive automation tune"` → Adjust automation levels based on current context
+- `"Predictive session planning"` → AI-powered session planning and resource allocation
+
+### Advanced Orchestration Commands  
+- `"System sync verification"` → Deep consistency check across all systems
+- `"Pattern learning update"` → Force update of learned patterns and behaviors
+- `"Workflow evolution analysis"` → Analyze how workflows have evolved over time
+- `"Intelligent load balancing"` → Optimize resource allocation across systems
+- `"Session continuity repair"` → Restore session continuity after interruptions
+- `"Multi-session coordination"` → Coordinate across multiple development sessions
+- `"Team workflow integration"` → Integrate with team-wide workflow patterns
+- `"Predictive maintenance"` → Proactive system maintenance and optimization
+
+This advanced session coordination system continuously learns and adapts, providing intelligent automation while maintaining transparency and user control over the development process.
