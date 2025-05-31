@@ -21,6 +21,7 @@ cursor_prompts/
 │   ├── memory-management.mdc  # Intelligent memory & context management
 │   ├── session-coordinator.mdc # Session continuity and handoffs
 │   ├── development-journal.mdc # Development pattern tracking
+│   ├── ADR.mdc                # Architectural Decision Records automation
 │   ├── debugging.mdc          # Efficient debugging optimization
 │   ├── efficiency.mdc         # Tool call and resource optimization
 │   └── commonsense.mdc        # Best practices and mistake prevention
@@ -64,6 +65,7 @@ Check that rules are loaded:
 
 | Rule | Purpose | Key Features |
 |------|---------|--------------|
+| **ADR.mdc** | Intelligent Architectural Decision Record automation | Decision detection, template-based ADR creation, decision tracking |
 | **debugging.mdc** | Highly efficient debugging with minimal tool calls | Tool call optimization, pattern-based debugging, duplication prevention |
 | **efficiency.mdc** | Minimize premium tool calls while maintaining productivity | Command batching, file operation efficiency, resource conservation |
 | **commonsense.mdc** | Common sense development practices and mistake prevention | Best practice enforcement, mistake prevention, quality guidelines |

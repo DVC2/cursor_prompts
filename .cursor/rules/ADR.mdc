@@ -1,0 +1,130 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# ADR Documentation Cursor Rule
+
+## When to Create ADRs
+The assistant should create ADRs (Architectural Decision Records) for:
+
+### High-Priority ADR Triggers:
+- **Technology Choices**: Framework selection, database choices, language decisions
+- **Architecture Patterns**: Microservices vs monolith, event-driven vs request-response
+- **Security Decisions**: Authentication methods, encryption choices, access control
+- **Performance Trade-offs**: Caching strategies, scaling approaches, optimization choices
+- **Integration Decisions**: API design, third-party service selection, protocol choices
+- **Data Architecture**: Schema design, storage solutions, migration strategies
+
+### Medium-Priority ADR Triggers:
+- **Development Workflow**: Testing strategies, deployment pipelines, code organization
+- **Monitoring & Observability**: Logging approaches, metrics collection, alerting strategies
+- **Error Handling**: Exception strategies, retry policies, circuit breaker implementations
+- **Configuration Management**: Environment handling, secrets management, feature flags
+
+## ADR Creation Process
+
+### 1. Automatic ADR Detection
+When the assistant identifies architectural decisions being made, it should:
+- Recognize decision-making moments in conversation
+- Suggest creating an ADR
+- Offer to draft the ADR immediately
+
+### 2. ADR Template Usage
+Always use this structure:
+```markdown
+# ADR-XXX: [Clear Decision Title]
+
+## Status
+[Proposed | Accepted | Deprecated | Superseded]
+
+## Context
+[Business/technical context that led to this decision]
+[Constraints, requirements, time pressures]
+[Current system state and limitations]
+
+## Decision
+[The specific decision made]
+[Key principles followed]
+[Implementation approach chosen]
+
+## Alternatives Considered
+### Option 1: [Alternative Name]
+- **Pros**: [Benefits]
+- **Cons**: [Drawbacks]
+- **Why Not**: [Specific reason for rejection]
+
+### Option 2: [Alternative Name]
+- **Pros**: [Benefits]
+- **Cons**: [Drawbacks]
+- **Why Not**: [Specific reason for rejection]
+
+## Consequences
+
+### Positive
+- [Benefit 1 with specific impact]
+- [Benefit 2 with measurable outcome]
+- [Long-term advantage]
+
+### Negative
+- [Trade-off 1 with mitigation plan]
+- [Cost/complexity increase]
+- [Technical debt implications]
+
+### Neutral
+- [Changes that are neither positive nor negative]
+
+## Implementation Notes
+- **Technical Details**: [Code patterns, configurations]
+- **Integration Points**: [How this affects other systems]
+- **Migration Path**: [If changing existing systems]
+- **Success Metrics**: [How to measure success]
+- **Review Date**: [When to revisit this decision]
+
+## References
+- [Links to related ADRs]
+- [External documentation]
+- [Research sources]
+```
+
+### 3. ADR Numbering Convention
+- Use sequential numbering: ADR-001, ADR-002, etc.
+- Check existing ADRs to determine next number
+- Include number in filename: `ADR-XXX-decision-title.md`
+
+### 4. ADR Integration Triggers
+Create ADRs when:
+- User asks "should we use X or Y?"
+- Architecture patterns are being discussed
+- Technology decisions are being made
+- Trade-offs are being evaluated
+- System changes affect multiple components
+- Security or performance decisions arise
+
+### 5. Conversation Integration
+- **Suggest ADRs**: "This architectural decision should be documented in an ADR. Should I create one?"
+- **Reference ADRs**: When similar decisions arise, reference existing ADRs
+- **Update ADRs**: When decisions change, suggest updating or superseding existing ADRs
+
+## ADR File Organization
+```
+docs/
+├── ADR/
+│   ├── ADR-001-database-selection.md
+│   ├── ADR-002-authentication-strategy.md
+│   ├── ADR-003-caching-approach.md
+│   └── README.md (ADR index)
+```
+
+## Quality Standards
+- **Clear Title**: Decision should be obvious from title
+- **Specific Context**: Include concrete details about the situation
+- **Honest Trade-offs**: Document real consequences, not just benefits
+- **Actionable Implementation**: Include practical guidance
+- **Living Documents**: Update when circumstances change
+
+## Integration with Other Documentation
+- Link ADRs from technical documentation
+- Reference ADRs in code comments for major patterns
+- Include ADR numbers in commit messages for implementation
+- Cross-reference related ADRs for decision chains
