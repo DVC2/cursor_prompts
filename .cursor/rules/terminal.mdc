@@ -1,0 +1,333 @@
+---
+description: Terminal command optimization - maximum efficiency, minimum waste, zero tolerance for redundancy
+globs: **/*.sh, **/*.bash, **/Makefile, **/package.json, **/*.py, **/Dockerfile, **/.github/workflows/*.yml
+alwaysApply: true
+---
+
+# Terminal Command Optimization Rules - NO WASTE EDITION
+
+## STOP WASTING MONEY - CORE PRINCIPLES
+
+### 1. THINK BEFORE YOU TYPE
+Before ANY command, ask:
+- Can I get this information another way?
+- Is this command actually necessary?
+- What's the failure rate?
+- Can I cache the result?
+
+### 2. ONE COMMAND TO RULE THEM ALL
+```bash
+# STOP doing this garbage:
+ls
+cd directory
+ls  # WHY ARE YOU LISTING TWICE???
+pwd  # YOU JUST CD'D THERE, YOU KNOW WHERE YOU ARE
+
+# Just do:
+cd directory  # That's it. Stop being extra.
+```
+
+### 3. AGGRESSIVE CACHING
+```bash
+# Cache everything that doesn't change often
+CACHE_DIR="${HOME}/.cache/myproject"
+mkdir -p "$CACHE_DIR"
+
+# Example: Cache npm dependencies checksum
+NPM_HASH=$(sha256sum package-lock.json | cut -d' ' -f1)
+CACHED_MARKER="$CACHE_DIR/npm-$NPM_HASH"
+
+[ -f "$CACHED_MARKER" ] || {
+    npm ci --prefer-offline --no-audit --no-fund && touch "$CACHED_MARKER"
+}
+```
+
+## REAL WORLD OPTIMIZATIONS
+
+### Git Operations That Don't Suck
+```bash
+# Smart git push that checks EVERYTHING first
+git_smart_push() {
+    # Check if we're in a git repo
+    git rev-parse --git-dir >/dev/null 2>&1 || return 1
+    
+    # Check if there are changes
+    [ -n "$(git status --porcelain)" ] || { echo "Nothing to commit"; return 0; }
+    
+    # Check if we have a remote
+    git remote -v | grep -q push || { echo "No remote configured"; return 1; }
+    
+    # Check if current branch tracks a remote
+    git rev-parse --abbrev-ref --symbolic-full-name @{u} >/dev/null 2>&1 || {
+        echo "Branch doesn't track remote. Use: git push -u origin $(git branch --show-current)"
+        return 1
+    }
+    
+    # NOW we can actually do work
+    git add -A && \
+    git diff --cached --quiet || \
+    git commit -m "${1:-Auto-commit $(date +%s)}" && \
+    git push
+}
+
+# Use it
+alias gsp='git_smart_push'
+```
+
+### NPM/Node Optimization
+```bash
+# Check if dependencies changed before installing
+npm_smart_install() {
+    local HASH=$(sha256sum package-lock.json 2>/dev/null | cut -d' ' -f1)
+    local MARKER=".npm-installed-$HASH"
+    
+    [ -f "$MARKER" ] && [ -d "node_modules" ] && {
+        echo "✓ Dependencies up to date"
+        return 0
+    }
+    
+    # Clean install only when needed
+    rm -f .npm-installed-* 2>/dev/null
+    npm ci --prefer-offline --no-audit --no-fund --silent && \
+    touch "$MARKER"
+}
+
+# Replace all npm install commands with this
+alias ni='npm_smart_install'
+```
+
+### File Operations That Actually Save Money
+```bash
+# Stop using cat for everything like a noob
+# Reading files efficiently based on size
+smart_read() {
+    local file="$1"
+    [ -f "$file" ] || { echo "File not found: $file"; return 1; }
+    
+    local size=$(stat -f%z "$file" 2>/dev/null || stat -c%s "$file" 2>/dev/null)
+    
+    # Under 1KB? Just read it
+    [ "$size" -lt 1024 ] && cat "$file" && return 0
+    
+    # Under 1MB? Use less
+    [ "$size" -lt 1048576 ] && less "$file" && return 0
+    
+    # Bigger? Sample it
+    echo "File is $(numfmt --to=iec-i --suffix=B "$size"). Showing sample:"
+    head -100 "$file"
+    echo "..."
+    tail -50 "$file"
+    echo "Use 'less $file' to view full file"
+}
+```
+
+### Docker/Build Optimization
+```bash
+# Stop rebuilding everything every time
+docker_smart_build() {
+    local CONTEXT_HASH=$(find . -type f \( -name "*.go" -o -name "*.js" -o -name "*.py" \) -exec sha256sum {} \; | sha256sum | cut -d' ' -f1)
+    local IMAGE_NAME="$1"
+    local CACHE_TAG="${IMAGE_NAME}:cache-${CONTEXT_HASH:0:8}"
+    
+    # Check if we already built this exact code
+    docker image inspect "$CACHE_TAG" >/dev/null 2>&1 && {
+        echo "✓ Using cached build: $CACHE_TAG"
+        docker tag "$CACHE_TAG" "$IMAGE_NAME:latest"
+        return 0
+    }
+    
+    # Build with maximum cache usage
+    docker build \
+        --cache-from "$IMAGE_NAME:latest" \
+        --build-arg BUILDKIT_INLINE_CACHE=1 \
+        -t "$CACHE_TAG" \
+        -t "$IMAGE_NAME:latest" \
+        .
+}
+```
+
+## TERMINAL CRIME PREVENTION
+
+### NEVER DO THESE (Seriously, I'll find you)
+```bash
+# CRIME: Checking if a command exists by running it
+python --version  # NO! This RUNS Python!
+
+# CORRECT: Use command -v
+command -v python >/dev/null 2>&1
+
+# CRIME: Using ls to check if directory exists
+ls mydir 2>/dev/null && cd mydir  # WASTEFUL!
+
+# CORRECT: Just try to cd
+cd mydir 2>/dev/null || echo "Directory doesn't exist"
+
+# CRIME: Multiple cd commands
+cd ..
+cd ..
+cd project  # ARE YOU LOST???
+
+# CORRECT: Use paths properly
+cd ../../project
+
+# CRIME: Running find multiple times
+find . -name "*.js" | wc -l
+find . -name "*.ts" | wc -l
+
+# CORRECT: One find, multiple operations
+find . \( -name "*.js" -o -name "*.ts" \) | awk -F. '{ext[$NF]++} END {for (e in ext) print e": "ext[e]}'
+```
+
+### ENVIRONMENT-AWARE EXECUTION
+```bash
+# Detect environment and adjust behavior
+get_env() {
+    [ -f /.dockerenv ] && echo "docker" && return
+    [ -n "$CI" ] && echo "ci" && return
+    [ -n "$KUBERNETES_SERVICE_HOST" ] && echo "k8s" && return
+    echo "local"
+}
+
+# Use different strategies based on environment
+case $(get_env) in
+    docker|k8s)
+        # Minimal commands, assume everything is ephemeral
+        alias ll='echo "File listing disabled in container"'
+        ;;
+    ci)
+        # Maximum caching, fail fast
+        set -euo pipefail
+        ;;
+    local)
+        # Full features
+        ;;
+esac
+```
+
+## THE ULTIMATE OPTIMIZATION: DON'T RUN COMMANDS
+
+### Pre-flight Checks
+```bash
+# Before ANY operation, run preflight checks
+preflight() {
+    local CHECKS_PASSED=true
+    
+    # Check disk space
+    available=$(df -k . | awk 'NR==2 {print $4}')
+    [ "$available" -lt 1048576 ] && {
+        echo "⚠️  Low disk space: $(numfmt --to=iec-i --suffix=B $((available * 1024)))"
+        CHECKS_PASSED=false
+    }
+    
+    # Check network
+    nc -z google.com 80 -w1 2>/dev/null || {
+        echo "⚠️  No network connection"
+        CHECKS_PASSED=false
+    }
+    
+    # Check load
+    load=$(uptime | awk -F'load average:' '{print $2}' | awk -F, '{print $1}' | xargs)
+    (( $(echo "$load > 4" | bc -l) )) && {
+        echo "⚠️  High system load: $load"
+        CHECKS_PASSED=false
+    }
+    
+    [ "$CHECKS_PASSED" = true ]
+}
+
+# Wrap expensive operations
+expensive_operation() {
+    preflight || { echo "Preflight checks failed. Aborting."; return 1; }
+    # Your actual operation here
+}
+```
+
+### Command Result Caching
+```bash
+# Cache command outputs with TTL
+cached_command() {
+    local cmd="$1"
+    local ttl="${2:-300}"  # 5 minutes default
+    local cache_key=$(echo "$cmd" | sha256sum | cut -d' ' -f1)
+    local cache_file="/tmp/cmd_cache_$cache_key"
+    
+    # Check cache
+    if [ -f "$cache_file" ]; then
+        local age=$(($(date +%s) - $(stat -f%m "$cache_file" 2>/dev/null || stat -c%Y "$cache_file")))
+        [ "$age" -lt "$ttl" ] && {
+            cat "$cache_file"
+            return 0
+        }
+    fi
+    
+    # Execute and cache
+    eval "$cmd" | tee "$cache_file"
+}
+
+# Usage
+alias aws-instances='cached_command "aws ec2 describe-instances" 600'
+```
+
+## MONEY-SAVING ALIASES
+```bash
+# Aliases that prevent waste
+alias rm='rm -i'  # Prevent accidental deletions that need recovery
+alias cp='cp -i'  # Prevent overwrites
+alias mv='mv -i'  # Prevent overwrites
+
+# Smart directory navigation
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
+alias -- -='cd -'  # Go back
+
+# Prevent common typos that waste commands
+alias sl='ls'
+alias l='ls'
+alias ll='ls -lah'
+alias la='ls -A'
+alias ks='ls'  # For those kubernetes finger slips
+
+# Git aliases that check first
+alias gs='git status -sb'  # Short status
+alias gd='git diff --stat'  # Summary first
+alias gl='git log --oneline --graph -10'  # Limited log
+
+# npm aliases with guards
+alias nit='npm_smart_install && npm test'
+alias nib='npm_smart_install && npm run build'
+```
+
+## METRICS AND MONITORING
+```bash
+# Track your command usage to find waste
+track_commands() {
+    # Add to .bashrc/.zshrc
+    PROMPT_COMMAND='history -a; echo "$(date +%s):$PWD:$(history 1)" >> ~/.command_log'
+}
+
+# Analyze waste
+analyze_waste() {
+    echo "Most repeated commands (potential for aliases):"
+    history | awk '{$1=""; print $0}' | sort | uniq -c | sort -rn | head -20
+    
+    echo -e "\nFailed commands (wasted executions):"
+    grep -E "(command not found|No such file|Permission denied)" ~/.bash_history | tail -20
+    
+    echo -e "\nExpensive operations:"
+    history | grep -E "(npm install|docker build|find /)" | tail -10
+}
+```
+
+## THE BRUTAL TRUTH
+
+Stop treating the terminal like a chat room. Every command costs money. Every typo costs money. Every "let me just check" costs money.
+
+**New Rules:**
+1. If you type `ls` more than once in the same directory, you've already failed
+2. If you're not using tab completion, you're wasting money on typos
+3. If you're not caching results, you're paying multiple times for the same data
+4. If you're running commands "just to see", use `--dry-run` or don't run them at all
+
+Remember: The cheapest command is the one you never run. The second cheapest is the one you cached. Everything else is just varying degrees of waste.
