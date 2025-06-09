@@ -1,5 +1,11 @@
 # Advanced Cursor Rules Collection
 
+[![CI Status](https://github.com/DVC2/cursor_prompts/workflows/🚀%20CI%20-%20Cursor%20Rules%20Validation/badge.svg)](https://github.com/DVC2/cursor_prompts/actions)
+[![License](https://img.shields.io/badge/license-Public%20Domain-blue.svg)](LICENSE)
+[![MDC Rules](https://img.shields.io/badge/MDC%20Rules-9%20Active-green.svg)](.cursor/rules)
+[![Documentation](https://img.shields.io/badge/docs-Complete-brightgreen.svg)](docs/)
+[![Metrics Dashboard](https://img.shields.io/badge/📊-Metrics%20Dashboard-orange.svg)](tools/metrics-dashboard/index.html)
+
 A curated collection of advanced `.mdc` rules for Cursor IDE that optimize AI agent behavior, memory management, and development workflows.
 
 ## 🎯 What This Repository Provides
@@ -127,7 +133,20 @@ alwaysApply: true
 ## 📚 Documentation
 
 - **[Complete Usage Guide](examples/use_cases/cursor-mdc-rules-guide.md)**: Comprehensive documentation for using these rules
+- **[Quick Reference Guide](docs/quick-reference.md)**: Fast commands and patterns with performance metrics
+- **[Troubleshooting Guide](docs/troubleshooting.md)**: Common issues and diagnostic procedures
+- **[Metrics Dashboard](tools/metrics-dashboard/index.html)**: Track your productivity improvements
 - **[Cursor Official Documentation](https://docs.cursor.com/context/rules)**: Official Cursor rules documentation
+
+## 🔧 Quality Assurance
+
+This repository is kept simple for easy use:
+
+- **Just copy rules from `.cursor/rules/` to your project**
+- **No Node.js, npm, or extra tooling required**
+- **All validation is handled by GitHub Actions before merging**
+
+All changes are automatically validated through GitHub Actions before merging.
 
 ## 🤝 Contributing
 

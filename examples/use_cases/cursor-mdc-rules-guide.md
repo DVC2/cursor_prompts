@@ -40,6 +40,8 @@ mkdir -p .cursor/rules
 
 # Test debugging
 "Debug why this function returns undefined"
+
+# Test rule loading and copying
 ```
 
 ## 📁 Installation

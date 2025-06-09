@@ -10,6 +10,13 @@ We welcome contributions that:
 - **Integrate well** with existing rules (no conflicts or redundancy)
 - **Are well-documented** with clear use cases and examples
 
+## 🚀 How to Contribute
+
+- **Edit or add `.mdc` files in `.cursor/rules/`**
+- **Test your rule in a real project for at least 1 week**
+- **Submit a Pull Request (PR) with a clear description and examples**
+- **No Node.js, npm, or extra tooling required**
+
 ## 🚀 How to Contribute New Rules
 
 ### 1. Identify a Need

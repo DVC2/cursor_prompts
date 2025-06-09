@@ -24,7 +24,7 @@
 |----------------|-------------|-----------------|
 | `command1 && command2 && command3` | Chain dependent operations | 67% fewer tool calls |
 | `find . -name "*.js" \| head -20` | Limit output for parsing | 80% faster processing |
-| `npm install && npm test && echo "✓ Ready"` | Complete setup in one call | 75% time savings |
+| `cp -r .cursor/rules/* /your/project/.cursor/rules/ && echo "✓ Ready"` | Complete setup in one call | 75% time savings |
 
 #### 📋 Copy-Paste Patterns
 
