@@ -1,213 +1,261 @@
 ---
 description: Prevents code duplication and AI hallucination through verification-first development
 globs: 
-  - "**/*.ts"
-  - "**/*.tsx"
-  - "**/*.js"
-  - "**/*.jsx"
-  - "**/*.py"
-  - "**/*.java"
-  - "**/*.go"
-  - "**/*.cs"
-  - "**/*.cpp"
-  - "**/*.c"
-  - "**/*.h"
-  - "**/*.hpp"
-  - "**/*.rb"
-  - "**/*.php"
+alwaysApply: true
+---
+---
+description: Optimizes terminal operations for AI agents by minimizing tool calls and maximizing efficiency
+globs:
+  - "**/*.sh"
+  - "**/*.bash"
+  - "**/Makefile"
+  - "**/Dockerfile"
+  - "**/*.yml"
+  - "**/*.yaml"
 alwaysApply: true
 ---
 
-# Anti-Duplication & Anti-Hallucination Rules
+# Terminal Optimization Rules for AI Agents
 
-## 🛑 STOP Protocol: Before Writing ANY Code
+## 🎯 Core Principle: Fewer Calls, Better Results
 
-### Step 1: SEARCH FIRST
-```
-For ANY function/component/utility you're about to create:
-1. Global search: "function_name", "functionName", "function-name"
-2. Check standard locations: /utils, /helpers, /lib, /services, /common
-3. Look for name variations: getUser = fetchUser = loadUser = retrieveUser
-4. Check plurals: getItem vs getItems, user vs users
-```
-
-### Step 2: VERIFY EXISTENCE
-```
-For ANY import/API/method you're about to use:
-✓ Is it imported at the top of the file?
-✓ Is it in package.json/requirements.txt/go.mod?
-✓ Can you find it being used elsewhere in the codebase?
-
-If ANY answer is NO → DON'T USE IT
-```
-
-### Step 3: PATTERN CHECK
-```
-Before implementing:
-□ Does similar logic exist elsewhere?
-□ Is there an established pattern for this?
-□ Are you following existing conventions?
-```
-
-## ❌ Hallucination Red Flags
-
-### NEVER trust these assumptions:
-```javascript
-// ❌ "There's probably a utility for this..."
-import { validateEmail } from './utils';  // VERIFY FIRST!
-
-// ❌ "The framework should have this..."
-const data = await fetchWithRetry(url);   // DOES THIS EXIST?
-
-// ❌ "This method should exist..."
-user.save();                              // CHECK THE API!
-
-// ❌ "This prop is probably supported..."
-<Button variant="gradient" />             // VERIFY PROPS!
-
-// ❌ "This hook must be available..."
-const [data] = useLocalStorage('key');    // IS IT IMPORTED?
-```
-
-## ✅ Correct Verification Flow
-
-### Example: Need to validate an email
-```javascript
-// 1. First, search for existing validation
-// Search: "validateEmail", "email validation", "isValidEmail"
-
-// 2. If found:
-import { validateEmail } from './utils/validation'; // Use existing
-
-// 3. If NOT found, check for libraries:
-// Look in package.json for validation libraries
-
-// 4. If no libraries, implement inline:
-const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-
-// 5. Consider extracting if used multiple times
-```
-
-## 🔍 Duplication Detection Patterns
-
-### Signs you're about to duplicate:
-- Similar function with different prefix: `get*`, `fetch*`, `load*`, `retrieve*`
-- Same conditional logic in multiple places
-- Repeated API call patterns
-- Similar data transformations
-- Common validation logic
-- Repeated error handling
-
-### Before creating a new file/function:
-```
-SEARCH QUERIES TO RUN:
-1. Core function name: "sendEmail", "send_email", "send-email"
-2. Related terms: "email", "mail", "smtp", "notification"
-3. Common prefixes: "handle", "process", "manage", "execute"
-4. File patterns: "*email*", "*mail*", "*notification*"
-```
-
-## 📋 Quick Decision Tree
-
-```
-Need to implement something?
-    ↓
-Can you find it with search? → YES → Import and use it
-    ↓ NO
-Is it a one-liner? → YES → Implement inline
-    ↓ NO
-Will it be used elsewhere? → YES → Create in /utils or /helpers
-    ↓ NO
-Implement in current file
-```
-
-## 🚨 Common Hallucination Traps
-
-### React/Frontend:
-```javascript
-// ❌ These hooks often DON'T exist by default:
-useLocalStorage()    // Custom hook - verify first!
-useFetch()          // Custom hook - verify first!
-useDebounce()       // Custom hook - verify first!
-
-// ✅ These are built-in React hooks:
-useState()          // ✓ Real React hook
-useEffect()         // ✓ Real React hook
-useContext()        // ✓ Real React hook
-```
-
-### Node.js/Backend:
-```javascript
-// ❌ These often DON'T exist:
-fs.readFileAsync()   // Should be fs.promises.readFile
-fetch()              // Not in Node < 18, need node-fetch
-db.query()           // Depends on your DB setup
-
-// ✅ Verify your environment:
-// Check Node version, installed packages, configured middleware
-```
-
-### Utilities:
-```javascript
-// ❌ Don't assume these exist:
-deepClone()         // Check if lodash is installed
-debounce()          // Check if lodash is installed
-formatCurrency()    // Probably custom - search first
-```
-
-## 📊 Verification Checklist
-
-### Before EVERY code generation:
-```
-□ Searched for existing implementations? (3+ search terms)
-□ Checked common directories? (/utils, /helpers, /lib)
-□ Verified all imports exist?
-□ Confirmed API methods are real?
-□ Following existing patterns?
-□ No phantom properties or methods?
-```
-
-### Quick Commands:
+### ALWAYS Chain Commands
 ```bash
-# Search for function
-grep -r "functionName" --include="*.js" --include="*.ts"
+# ✅ GOOD: Single tool call
+mkdir -p src/components && cd src/components && touch index.js && echo "Created component structure"
 
-# Find imports
-grep -r "import.*functionName" 
-
-# Check if package exists
-cat package.json | grep "packageName"
-
-# Find usage examples
-grep -r "\.methodName(" --include="*.js"
+# ❌ BAD: Multiple tool calls
+mkdir src/components
+cd src/components
+touch index.js
+echo "Created component structure"
 ```
 
-## 🎯 Golden Rules
+## 📋 Command Patterns
 
-1. **When in doubt, SEARCH** - It's faster to search than to duplicate
-2. **No convenient assumptions** - If it seems too convenient, verify it
-3. **Follow the pattern** - If 5 files do it one way, don't be the 6th way
-4. **Explicit > Implicit** - Better to import clearly than assume availability
-5. **Document when creating** - If you create a new utility, comment its purpose
+### 1. State Verification First
+```bash
+# Before any file operation
+pwd && ls -la
 
-## 💡 Pro Tips
+# Before using any tool
+which npm && npm --version || echo "npm not found"
 
-### For Large Codebases:
-- Map common utilities once, reference your mental map
-- Note naming conventions early (camelCase vs snake_case)
-- Identify the "utils" directory structure
+# Before git operations
+git status --porcelain || echo "Not a git repo"
+```
 
-### For Team Projects:
-- Check recent commits for similar features
-- Look at related feature implementations
-- Follow established module boundaries
+### 2. Smart Command Chaining
+```bash
+# Use && for sequential success-dependent commands
+command1 && command2 && command3
 
-### For Frameworks:
-- Know what's built-in vs what's custom
-- Check framework version for available features
-- Don't assume latest features in older versions
+# Use ; for independent commands
+command1 ; command2 ; command3
 
----
+# Use || for fallbacks
+command || echo "Command failed"
 
-**Remember**: Every duplicate weakens the codebase. Every hallucination wastes time. 
-**VERIFY FIRST, CODE SECOND.**
+# Combine for robust execution
+mkdir -p dir && cd dir && echo "✓ In directory" || echo "✗ Failed to create/enter directory"
+```
+
+### 3. Output Optimization
+```bash
+# Minimize output for parsing
+ls -1          # One file per line, no details
+git status -s  # Short status
+grep -l        # List only filenames
+find . -name "*.js" -type f | head -20  # Limit results
+
+# Silent operations when output not needed
+npm install --silent
+git add . 2>/dev/null
+rm -rf dir 2>&1 >/dev/null
+
+# Get only what you need
+cat package.json | jq -r '.dependencies | keys[]'  # Just dependency names
+git log --oneline -5  # Last 5 commits, concise
+```
+
+## 🔄 Common Task Templates
+
+### Git Operations
+```bash
+# Complete feature branch workflow (1 call)
+git checkout -b feature/name && \
+echo "Implementation" > feature.js && \
+git add . && \
+git commit -m "Add feature" && \
+git push -u origin feature/name || echo "Git workflow failed at: $?"
+
+# Check and clean (1 call)
+git status --porcelain && git diff --stat || echo "Working directory clean"
+```
+
+### Project Setup
+```bash
+# Full project initialization (1 call)
+mkdir -p project/{src,tests,docs} && \
+cd project && \
+npm init -y && \
+npm install --save-dev jest eslint && \
+echo "node_modules/" > .gitignore && \
+git init && \
+git add . && \
+git commit -m "Initial commit" || echo "Setup failed"
+```
+
+### File Operations
+```bash
+# Create multiple files with content (1 call)
+cat << 'EOF' > config.js
+module.exports = {
+  env: 'development'
+};
+EOF && \
+cat << 'EOF' > index.js
+const config = require('./config');
+console.log(config);
+EOF && echo "✓ Files created"
+
+# Search and process (1 call)
+find . -name "*.test.js" -type f | xargs grep -l "describe" | head -10
+```
+
+### Dependency Management
+```bash
+# Install and verify (1 call)
+npm install express && npm list express || yarn add express && yarn list express
+
+# Update and audit (1 call)
+npm update && npm audit --audit-level=moderate || echo "Update/audit had issues"
+```
+
+## 🛡️ Error Handling Patterns
+
+### Always Include Verification
+```bash
+# Pattern: action && success_indicator || failure_indicator
+cd /path/to/dir && echo "✓ Moved to dir" || echo "✗ Failed to change directory"
+
+# Check exit codes when needed
+command ; [ $? -eq 0 ] && echo "Success" || echo "Failed with code $?"
+```
+
+### Safe Destructive Operations
+```bash
+# Confirm before destroying
+[ -d "./build" ] && rm -rf ./build && echo "✓ Cleaned build" || echo "✓ No build to clean"
+
+# Backup before modifying
+[ -f "config.json" ] && cp config.json config.json.bak && echo "✓ Backed up config"
+```
+
+## 📊 Efficiency Rules
+
+### 1. Batch Similar Operations
+```bash
+# ✅ GOOD: Process all files at once
+find . -name "*.js" -type f -exec prettier --write {} \;
+
+# ❌ BAD: Individual file processing
+prettier --write file1.js
+prettier --write file2.js
+prettier --write file3.js
+```
+
+### 2. Use Command Substitution
+```bash
+# Get and use info in one call
+echo "Latest commit: $(git log -1 --format=%H)"
+npm version $(git describe --tags --abbrev=0)
+```
+
+### 3. Minimize Directory Changes
+```bash
+# ✅ GOOD: Use absolute/relative paths
+mkdir -p ./src/components && touch ./src/components/index.js
+
+# ❌ BAD: Excessive cd commands
+cd src
+mkdir components
+cd components
+touch index.js
+cd ../../..
+```
+
+## 🎪 Environment Checks
+
+### Start Sessions With Context
+```bash
+# Quick environment check (1 call)
+echo "=== Environment ===" && \
+pwd && \
+echo "Node: $(node -v 2>/dev/null || echo 'not installed')" && \
+echo "Git: $(git --version 2>/dev/null || echo 'not installed')" && \
+echo "Branch: $(git branch --show-current 2>/dev/null || echo 'not in git repo')" && \
+echo "================="
+```
+
+## ⚡ Performance Tips
+
+### 1. Prefer Built-in Commands
+```bash
+# Use shell built-ins when possible
+[[ -f file.txt ]] && echo "exists"  # Faster than: test -f file.txt
+```
+
+### 2. Avoid Unnecessary Cats
+```bash
+# ✅ GOOD
+grep "pattern" file.txt
+
+# ❌ BAD
+cat file.txt | grep "pattern"
+```
+
+### 3. Use Appropriate Tools
+```bash
+# For JSON: use jq
+cat package.json | jq '.scripts'
+
+# For counting: use wc
+find . -name "*.js" | wc -l
+
+# For text processing: use awk/sed
+cat data.csv | awk -F',' '{print $1}'
+```
+
+## 🚀 Common Workflows
+
+### Development Cycle
+```bash
+# Complete test-and-commit cycle (1 call)
+npm test && \
+npm run lint && \
+git add . && \
+git commit -m "Update: $(git diff --staged --name-only | head -1)" && \
+echo "✓ Tests passed, committed changes" || echo "✗ Workflow failed"
+```
+
+### Debugging Information
+```bash
+# Gather all debug info (1 call)
+echo "=== Debug Info ===" && \
+echo "PWD: $(pwd)" && \
+echo "Files: $(ls -1 | wc -l)" && \
+echo "Git status: $(git status -s | wc -l) changes" && \
+echo "Last error: $(tail -1 npm-debug.log 2>/dev/null || echo 'none')" && \
+echo "==============="
+```
+
+## 📏 Rule Summary
+
+1. **Chain commands** with && or ; to reduce tool calls
+2. **Verify state** before operations
+3. **Optimize output** for what you actually need
+4. **Handle errors** gracefully with || fallbacks
+5. **Batch operations** when processing multiple items
+6. **Use templates** for common workflows
+Remember: Every terminal call costs time and tokens. Make each one count!

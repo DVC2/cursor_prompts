@@ -3,331 +3,260 @@ description: Terminal command optimization - maximum efficiency, minimum waste, 
 globs: **/*.sh, **/*.bash, **/Makefile, **/package.json, **/*.py, **/Dockerfile, **/.github/workflows/*.yml
 alwaysApply: true
 ---
+---
+description: Optimizes terminal operations for AI agents by minimizing tool calls and maximizing efficiency
+globs:
+  - "**/*.sh"
+  - "**/*.bash"
+  - "**/Makefile"
+  - "**/Dockerfile"
+  - "**/*.yml"
+  - "**/*.yaml"
+alwaysApply: true
+---
 
-# Terminal Command Optimization Rules - NO WASTE EDITION
+# Terminal Optimization Rules for AI Agents
 
-## STOP WASTING MONEY - CORE PRINCIPLES
+## 🎯 Core Principle: Fewer Calls, Better Results
 
-### 1. THINK BEFORE YOU TYPE
-Before ANY command, ask:
-- Can I get this information another way?
-- Is this command actually necessary?
-- What's the failure rate?
-- Can I cache the result?
-
-### 2. ONE COMMAND TO RULE THEM ALL
+### ALWAYS Chain Commands
 ```bash
-# STOP doing this garbage:
-ls
-cd directory
-ls  # WHY ARE YOU LISTING TWICE???
-pwd  # YOU JUST CD'D THERE, YOU KNOW WHERE YOU ARE
+# ✅ GOOD: Single tool call
+mkdir -p src/components && cd src/components && touch index.js && echo "Created component structure"
 
-# Just do:
-cd directory  # That's it. Stop being extra.
+# ❌ BAD: Multiple tool calls
+mkdir src/components
+cd src/components
+touch index.js
+echo "Created component structure"
 ```
 
-### 3. AGGRESSIVE CACHING
+## 📋 Command Patterns
+
+### 1. State Verification First
 ```bash
-# Cache everything that doesn't change often
-CACHE_DIR="${HOME}/.cache/myproject"
-mkdir -p "$CACHE_DIR"
+# Before any file operation
+pwd && ls -la
 
-# Example: Cache npm dependencies checksum
-NPM_HASH=$(sha256sum package-lock.json | cut -d' ' -f1)
-CACHED_MARKER="$CACHE_DIR/npm-$NPM_HASH"
+# Before using any tool
+which npm && npm --version || echo "npm not found"
 
-[ -f "$CACHED_MARKER" ] || {
-    npm ci --prefer-offline --no-audit --no-fund && touch "$CACHED_MARKER"
-}
+# Before git operations
+git status --porcelain || echo "Not a git repo"
 ```
 
-## REAL WORLD OPTIMIZATIONS
-
-### Git Operations That Don't Suck
+### 2. Smart Command Chaining
 ```bash
-# Smart git push that checks EVERYTHING first
-git_smart_push() {
-    # Check if we're in a git repo
-    git rev-parse --git-dir >/dev/null 2>&1 || return 1
-    
-    # Check if there are changes
-    [ -n "$(git status --porcelain)" ] || { echo "Nothing to commit"; return 0; }
-    
-    # Check if we have a remote
-    git remote -v | grep -q push || { echo "No remote configured"; return 1; }
-    
-    # Check if current branch tracks a remote
-    git rev-parse --abbrev-ref --symbolic-full-name @{u} >/dev/null 2>&1 || {
-        echo "Branch doesn't track remote. Use: git push -u origin $(git branch --show-current)"
-        return 1
-    }
-    
-    # NOW we can actually do work
-    git add -A && \
-    git diff --cached --quiet || \
-    git commit -m "${1:-Auto-commit $(date +%s)}" && \
-    git push
-}
+# Use && for sequential success-dependent commands
+command1 && command2 && command3
 
-# Use it
-alias gsp='git_smart_push'
+# Use ; for independent commands
+command1 ; command2 ; command3
+
+# Use || for fallbacks
+command || echo "Command failed"
+
+# Combine for robust execution
+mkdir -p dir && cd dir && echo "✓ In directory" || echo "✗ Failed to create/enter directory"
 ```
 
-### NPM/Node Optimization
+### 3. Output Optimization
 ```bash
-# Check if dependencies changed before installing
-npm_smart_install() {
-    local HASH=$(sha256sum package-lock.json 2>/dev/null | cut -d' ' -f1)
-    local MARKER=".npm-installed-$HASH"
-    
-    [ -f "$MARKER" ] && [ -d "node_modules" ] && {
-        echo "✓ Dependencies up to date"
-        return 0
-    }
-    
-    # Clean install only when needed
-    rm -f .npm-installed-* 2>/dev/null
-    npm ci --prefer-offline --no-audit --no-fund --silent && \
-    touch "$MARKER"
-}
+# Minimize output for parsing
+ls -1          # One file per line, no details
+git status -s  # Short status
+grep -l        # List only filenames
+find . -name "*.js" -type f | head -20  # Limit results
 
-# Replace all npm install commands with this
-alias ni='npm_smart_install'
+# Silent operations when output not needed
+npm install --silent
+git add . 2>/dev/null
+rm -rf dir 2>&1 >/dev/null
+
+# Get only what you need
+cat package.json | jq -r '.dependencies | keys[]'  # Just dependency names
+git log --oneline -5  # Last 5 commits, concise
 ```
 
-### File Operations That Actually Save Money
+## 🔄 Common Task Templates
+
+### Git Operations
 ```bash
-# Stop using cat for everything like a noob
-# Reading files efficiently based on size
-smart_read() {
-    local file="$1"
-    [ -f "$file" ] || { echo "File not found: $file"; return 1; }
-    
-    local size=$(stat -f%z "$file" 2>/dev/null || stat -c%s "$file" 2>/dev/null)
-    
-    # Under 1KB? Just read it
-    [ "$size" -lt 1024 ] && cat "$file" && return 0
-    
-    # Under 1MB? Use less
-    [ "$size" -lt 1048576 ] && less "$file" && return 0
-    
-    # Bigger? Sample it
-    echo "File is $(numfmt --to=iec-i --suffix=B "$size"). Showing sample:"
-    head -100 "$file"
-    echo "..."
-    tail -50 "$file"
-    echo "Use 'less $file' to view full file"
-}
+# Complete feature branch workflow (1 call)
+git checkout -b feature/name && \
+echo "Implementation" > feature.js && \
+git add . && \
+git commit -m "Add feature" && \
+git push -u origin feature/name || echo "Git workflow failed at: $?"
+
+# Check and clean (1 call)
+git status --porcelain && git diff --stat || echo "Working directory clean"
 ```
 
-### Docker/Build Optimization
+### Project Setup
 ```bash
-# Stop rebuilding everything every time
-docker_smart_build() {
-    local CONTEXT_HASH=$(find . -type f \( -name "*.go" -o -name "*.js" -o -name "*.py" \) -exec sha256sum {} \; | sha256sum | cut -d' ' -f1)
-    local IMAGE_NAME="$1"
-    local CACHE_TAG="${IMAGE_NAME}:cache-${CONTEXT_HASH:0:8}"
-    
-    # Check if we already built this exact code
-    docker image inspect "$CACHE_TAG" >/dev/null 2>&1 && {
-        echo "✓ Using cached build: $CACHE_TAG"
-        docker tag "$CACHE_TAG" "$IMAGE_NAME:latest"
-        return 0
-    }
-    
-    # Build with maximum cache usage
-    docker build \
-        --cache-from "$IMAGE_NAME:latest" \
-        --build-arg BUILDKIT_INLINE_CACHE=1 \
-        -t "$CACHE_TAG" \
-        -t "$IMAGE_NAME:latest" \
-        .
-}
+# Full project initialization (1 call)
+mkdir -p project/{src,tests,docs} && \
+cd project && \
+npm init -y && \
+npm install --save-dev jest eslint && \
+echo "node_modules/" > .gitignore && \
+git init && \
+git add . && \
+git commit -m "Initial commit" || echo "Setup failed"
 ```
 
-## TERMINAL CRIME PREVENTION
-
-### NEVER DO THESE (Seriously, I'll find you)
+### File Operations
 ```bash
-# CRIME: Checking if a command exists by running it
-python --version  # NO! This RUNS Python!
+# Create multiple files with content (1 call)
+cat << 'EOF' > config.js
+module.exports = {
+  env: 'development'
+};
+EOF && \
+cat << 'EOF' > index.js
+const config = require('./config');
+console.log(config);
+EOF && echo "✓ Files created"
 
-# CORRECT: Use command -v
-command -v python >/dev/null 2>&1
+# Search and process (1 call)
+find . -name "*.test.js" -type f | xargs grep -l "describe" | head -10
+```
 
-# CRIME: Using ls to check if directory exists
-ls mydir 2>/dev/null && cd mydir  # WASTEFUL!
+### Dependency Management
+```bash
+# Install and verify (1 call)
+npm install express && npm list express || yarn add express && yarn list express
 
-# CORRECT: Just try to cd
-cd mydir 2>/dev/null || echo "Directory doesn't exist"
+# Update and audit (1 call)
+npm update && npm audit --audit-level=moderate || echo "Update/audit had issues"
+```
 
-# CRIME: Multiple cd commands
-cd ..
-cd ..
-cd project  # ARE YOU LOST???
+## 🛡️ Error Handling Patterns
 
-# CORRECT: Use paths properly
-cd ../../project
+### Always Include Verification
+```bash
+# Pattern: action && success_indicator || failure_indicator
+cd /path/to/dir && echo "✓ Moved to dir" || echo "✗ Failed to change directory"
 
-# CRIME: Running find multiple times
+# Check exit codes when needed
+command ; [ $? -eq 0 ] && echo "Success" || echo "Failed with code $?"
+```
+
+### Safe Destructive Operations
+```bash
+# Confirm before destroying
+[ -d "./build" ] && rm -rf ./build && echo "✓ Cleaned build" || echo "✓ No build to clean"
+
+# Backup before modifying
+[ -f "config.json" ] && cp config.json config.json.bak && echo "✓ Backed up config"
+```
+
+## 📊 Efficiency Rules
+
+### 1. Batch Similar Operations
+```bash
+# ✅ GOOD: Process all files at once
+find . -name "*.js" -type f -exec prettier --write {} \;
+
+# ❌ BAD: Individual file processing
+prettier --write file1.js
+prettier --write file2.js
+prettier --write file3.js
+```
+
+### 2. Use Command Substitution
+```bash
+# Get and use info in one call
+echo "Latest commit: $(git log -1 --format=%H)"
+npm version $(git describe --tags --abbrev=0)
+```
+
+### 3. Minimize Directory Changes
+```bash
+# ✅ GOOD: Use absolute/relative paths
+mkdir -p ./src/components && touch ./src/components/index.js
+
+# ❌ BAD: Excessive cd commands
+cd src
+mkdir components
+cd components
+touch index.js
+cd ../../..
+```
+
+## 🎪 Environment Checks
+
+### Start Sessions With Context
+```bash
+# Quick environment check (1 call)
+echo "=== Environment ===" && \
+pwd && \
+echo "Node: $(node -v 2>/dev/null || echo 'not installed')" && \
+echo "Git: $(git --version 2>/dev/null || echo 'not installed')" && \
+echo "Branch: $(git branch --show-current 2>/dev/null || echo 'not in git repo')" && \
+echo "================="
+```
+
+## ⚡ Performance Tips
+
+### 1. Prefer Built-in Commands
+```bash
+# Use shell built-ins when possible
+[[ -f file.txt ]] && echo "exists"  # Faster than: test -f file.txt
+```
+
+### 2. Avoid Unnecessary Cats
+```bash
+# ✅ GOOD
+grep "pattern" file.txt
+
+# ❌ BAD
+cat file.txt | grep "pattern"
+```
+
+### 3. Use Appropriate Tools
+```bash
+# For JSON: use jq
+cat package.json | jq '.scripts'
+
+# For counting: use wc
 find . -name "*.js" | wc -l
-find . -name "*.ts" | wc -l
 
-# CORRECT: One find, multiple operations
-find . \( -name "*.js" -o -name "*.ts" \) | awk -F. '{ext[$NF]++} END {for (e in ext) print e": "ext[e]}'
+# For text processing: use awk/sed
+cat data.csv | awk -F',' '{print $1}'
 ```
 
-### ENVIRONMENT-AWARE EXECUTION
+## 🚀 Common Workflows
+
+### Development Cycle
 ```bash
-# Detect environment and adjust behavior
-get_env() {
-    [ -f /.dockerenv ] && echo "docker" && return
-    [ -n "$CI" ] && echo "ci" && return
-    [ -n "$KUBERNETES_SERVICE_HOST" ] && echo "k8s" && return
-    echo "local"
-}
-
-# Use different strategies based on environment
-case $(get_env) in
-    docker|k8s)
-        # Minimal commands, assume everything is ephemeral
-        alias ll='echo "File listing disabled in container"'
-        ;;
-    ci)
-        # Maximum caching, fail fast
-        set -euo pipefail
-        ;;
-    local)
-        # Full features
-        ;;
-esac
+# Complete test-and-commit cycle (1 call)
+npm test && \
+npm run lint && \
+git add . && \
+git commit -m "Update: $(git diff --staged --name-only | head -1)" && \
+echo "✓ Tests passed, committed changes" || echo "✗ Workflow failed"
 ```
 
-## THE ULTIMATE OPTIMIZATION: DON'T RUN COMMANDS
-
-### Pre-flight Checks
+### Debugging Information
 ```bash
-# Before ANY operation, run preflight checks
-preflight() {
-    local CHECKS_PASSED=true
-    
-    # Check disk space
-    available=$(df -k . | awk 'NR==2 {print $4}')
-    [ "$available" -lt 1048576 ] && {
-        echo "⚠️  Low disk space: $(numfmt --to=iec-i --suffix=B $((available * 1024)))"
-        CHECKS_PASSED=false
-    }
-    
-    # Check network
-    nc -z google.com 80 -w1 2>/dev/null || {
-        echo "⚠️  No network connection"
-        CHECKS_PASSED=false
-    }
-    
-    # Check load
-    load=$(uptime | awk -F'load average:' '{print $2}' | awk -F, '{print $1}' | xargs)
-    (( $(echo "$load > 4" | bc -l) )) && {
-        echo "⚠️  High system load: $load"
-        CHECKS_PASSED=false
-    }
-    
-    [ "$CHECKS_PASSED" = true ]
-}
-
-# Wrap expensive operations
-expensive_operation() {
-    preflight || { echo "Preflight checks failed. Aborting."; return 1; }
-    # Your actual operation here
-}
+# Gather all debug info (1 call)
+echo "=== Debug Info ===" && \
+echo "PWD: $(pwd)" && \
+echo "Files: $(ls -1 | wc -l)" && \
+echo "Git status: $(git status -s | wc -l) changes" && \
+echo "Last error: $(tail -1 npm-debug.log 2>/dev/null || echo 'none')" && \
+echo "==============="
 ```
 
-### Command Result Caching
-```bash
-# Cache command outputs with TTL
-cached_command() {
-    local cmd="$1"
-    local ttl="${2:-300}"  # 5 minutes default
-    local cache_key=$(echo "$cmd" | sha256sum | cut -d' ' -f1)
-    local cache_file="/tmp/cmd_cache_$cache_key"
-    
-    # Check cache
-    if [ -f "$cache_file" ]; then
-        local age=$(($(date +%s) - $(stat -f%m "$cache_file" 2>/dev/null || stat -c%Y "$cache_file")))
-        [ "$age" -lt "$ttl" ] && {
-            cat "$cache_file"
-            return 0
-        }
-    fi
-    
-    # Execute and cache
-    eval "$cmd" | tee "$cache_file"
-}
+## 📏 Rule Summary
 
-# Usage
-alias aws-instances='cached_command "aws ec2 describe-instances" 600'
-```
+1. **Chain commands** with && or ; to reduce tool calls
+2. **Verify state** before operations
+3. **Optimize output** for what you actually need
+4. **Handle errors** gracefully with || fallbacks
+5. **Batch operations** when processing multiple items
+6. **Use templates** for common workflows
 
-## MONEY-SAVING ALIASES
-```bash
-# Aliases that prevent waste
-alias rm='rm -i'  # Prevent accidental deletions that need recovery
-alias cp='cp -i'  # Prevent overwrites
-alias mv='mv -i'  # Prevent overwrites
-
-# Smart directory navigation
-alias ..='cd ..'
-alias ...='cd ../..'
-alias ....='cd ../../..'
-alias .....='cd ../../../..'
-alias -- -='cd -'  # Go back
-
-# Prevent common typos that waste commands
-alias sl='ls'
-alias l='ls'
-alias ll='ls -lah'
-alias la='ls -A'
-alias ks='ls'  # For those kubernetes finger slips
-
-# Git aliases that check first
-alias gs='git status -sb'  # Short status
-alias gd='git diff --stat'  # Summary first
-alias gl='git log --oneline --graph -10'  # Limited log
-
-# npm aliases with guards
-alias nit='npm_smart_install && npm test'
-alias nib='npm_smart_install && npm run build'
-```
-
-## METRICS AND MONITORING
-```bash
-# Track your command usage to find waste
-track_commands() {
-    # Add to .bashrc/.zshrc
-    PROMPT_COMMAND='history -a; echo "$(date +%s):$PWD:$(history 1)" >> ~/.command_log'
-}
-
-# Analyze waste
-analyze_waste() {
-    echo "Most repeated commands (potential for aliases):"
-    history | awk '{$1=""; print $0}' | sort | uniq -c | sort -rn | head -20
-    
-    echo -e "\nFailed commands (wasted executions):"
-    grep -E "(command not found|No such file|Permission denied)" ~/.bash_history | tail -20
-    
-    echo -e "\nExpensive operations:"
-    history | grep -E "(npm install|docker build|find /)" | tail -10
-}
-```
-
-## THE BRUTAL TRUTH
-
-Stop treating the terminal like a chat room. Every command costs money. Every typo costs money. Every "let me just check" costs money.
-
-**New Rules:**
-1. If you type `ls` more than once in the same directory, you've already failed
-2. If you're not using tab completion, you're wasting money on typos
-3. If you're not caching results, you're paying multiple times for the same data
-4. If you're running commands "just to see", use `--dry-run` or don't run them at all
-
-Remember: The cheapest command is the one you never run. The second cheapest is the one you cached. Everything else is just varying degrees of waste.
+Remember: Every terminal call costs time and tokens. Make each one count!

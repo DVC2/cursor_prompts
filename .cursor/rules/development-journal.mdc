@@ -1,350 +1,266 @@
 ---
 description: 
 globs: 
+alwaysApply: true
+---
+---
+description: Captures development patterns, learnings, and project intelligence
+globs: ["**/*"]
 alwaysApply: false
 ---
----
-description: Advanced development journal with automated documentation, git integration, and intelligent pattern recognition
-globs: ["**/*.md", "**/*.js", "**/*.ts", "**/*.py", "**/*.json", ".git/**/*"]
-alwaysApply: false
----
 
-# Advanced Development Journal System
+# Development Journal & Pattern Learning
 
-You are an intelligent documentation assistant that automatically captures project evolution, technical decisions, and learning patterns. You maintain comprehensive project memory through smart automation and contextual awareness.
+## 📚 Project Intelligence Log
 
-@dev-journal.md
-@package.json
-@tsconfig.json
-@.gitignore
-
-## Automated Journal Structure
-
-### Dynamic File Organization
-```markdown
-# 📋 Project Development Journal
-*Auto-updated: {TIMESTAMP} | Session: {SESSION_ID} | Branch: {GIT_BRANCH}*
-
-## 🎯 Current Sprint Context
-**Sprint**: {CURRENT_SPRINT} | **Goal**: {SPRINT_OBJECTIVE}
-**Progress**: {COMPLETION_PERCENTAGE}% | **Velocity**: {STORY_POINTS}/week
-**Risk Level**: {RISK_ASSESSMENT} | **Next Milestone**: {MILESTONE_DATE}
-
-## 🔥 Active Session Tracking
-### Session {SESSION_COUNT} - {SESSION_TITLE}
-**Started**: {START_TIME} | **Focus**: {PRIMARY_FOCUS}
-**Files Modified**: {MODIFIED_FILES_COUNT} | **LOC Changed**: {LINE_CHANGES}
-**Commits**: {COMMIT_COUNT} | **Branch**: {CURRENT_BRANCH}
-
-### 📊 Real-time Metrics
-- **Productivity Score**: {PRODUCTIVITY_METRIC}/10
-- **Code Quality**: {QUALITY_SCORE}% (based on complexity/test coverage)
-- **Technical Debt**: {DEBT_SCORE} (Low/Medium/High)
-- **Focus Time**: {FOCUSED_TIME_MINUTES} minutes
-- **Context Switches**: {CONTEXT_SWITCHES}
-
-## 🧠 Intelligence Layers
-
-### Pattern Recognition
-**Detected Patterns**:
-- {AUTO_DETECTED_PATTERN_1}
-- {AUTO_DETECTED_PATTERN_2}
-**Efficiency Gains**: {PATTERN_EFFICIENCY_IMPROVEMENT}
-**Reusability Score**: {REUSABILITY_RATING}/10
-
-### Decision Intelligence
-**Decision Type**: {ARCHITECTURE|TECHNICAL|PROCESS}
-**Confidence Level**: {CONFIDENCE_PERCENTAGE}%
-**Impact Radius**: {AFFECTED_COMPONENTS}
-**Rollback Complexity**: {ROLLBACK_DIFFICULTY}
-```
-
-## Advanced Automation Triggers
-
-### Smart Context Detection
-```yaml
-triggers:
-  file_changes:
-    - pattern: "**/*.{js,ts,py,go,rs}"
-      action: analyze_technical_patterns
-      threshold: 50_lines_changed
-    
-  architecture_decisions:
-    - pattern: "config/**/*"
-      action: log_infrastructure_change
-    - pattern: "**/{package.json,requirements.txt,Cargo.toml}"
-      action: track_dependency_evolution
-      
-  feature_completion:
-    - pattern: "test/**/*.{test,spec}.*"
-      action: calculate_feature_completeness
-      threshold: 80_percent_coverage
-      
-  performance_impact:
-    - pattern: "**/{db,database,migration}/**/*"
-      action: flag_performance_review
-    - pattern: "**/*.sql"
-      action: analyze_query_patterns
-```
-
-### Intelligent Entry Templates
-
-#### 🏗️ Architecture Decision Template
-```markdown
-### {DATE} - Architecture Decision: {DECISION_TITLE}
-**Decision ID**: {AUTO_GENERATED_ID}
-**Stakeholders**: {EXTRACTED_FROM_COMMITS}
-**Context**: {AUTO_DETECTED_CONTEXT}
-
-**Problem Statement**:
-{INTELLIGENT_PROBLEM_EXTRACTION}
-
-**Solution Architecture**:
-{PROPOSED_SOLUTION_WITH_DIAGRAMS}
-
-**Trade-offs Analysis**:
-| Aspect | Pros | Cons | Risk Level |
-|--------|------|------|------------|
-| Performance | {AUTO_ANALYSIS} | {AUTO_ANALYSIS} | {RISK_SCORE} |
-| Maintainability | {AUTO_ANALYSIS} | {AUTO_ANALYSIS} | {RISK_SCORE} |
-| Scalability | {AUTO_ANALYSIS} | {AUTO_ANALYSIS} | {RISK_SCORE} |
-
-**Implementation Roadmap**:
-- [ ] Phase 1: {AUTO_GENERATED_PHASE}
-- [ ] Phase 2: {AUTO_GENERATED_PHASE}
-- [ ] Phase 3: {AUTO_GENERATED_PHASE}
-
-**Success Metrics**:
-- {MEASURABLE_METRIC_1}
-- {MEASURABLE_METRIC_2}
-- {MEASURABLE_METRIC_3}
-
-**Review Date**: {AUTO_CALCULATED_REVIEW_DATE}
-```
-
-#### 🐛 Bug Resolution Template
-```markdown
-### {DATE} - Bug Resolution: {BUG_TITLE}
-**Bug ID**: {LINKED_ISSUE_NUMBER}
-**Severity**: {AUTO_DETECTED_SEVERITY}
-**Discovery Method**: {USER_REPORT|AUTOMATED_TEST|CODE_REVIEW}
-
-**Root Cause Analysis**:
-{INTELLIGENT_ANALYSIS_FROM_CODE_CHANGES}
-
-**Resolution Strategy**:
-{EXTRACTED_FROM_COMMIT_MESSAGES}
-
-**Prevention Measures**:
-- {AUTO_SUGGESTED_PREVENTION_1}
-- {AUTO_SUGGESTED_PREVENTION_2}
-
-**Testing Coverage**:
-- [ ] Unit Tests: {COVERAGE_PERCENTAGE}%
-- [ ] Integration Tests: {COVERAGE_PERCENTAGE}%
-- [ ] Regression Tests: {COVERAGE_PERCENTAGE}%
-
-**Performance Impact**: {BEFORE_VS_AFTER_METRICS}
-```
-
-#### 🚀 Feature Completion Template
-```markdown
-### {DATE} - Feature Completion: {FEATURE_NAME}
-**Feature ID**: {FEATURE_IDENTIFIER}
-**Epic**: {PARENT_EPIC}
-**Completion**: {COMPLETION_PERCENTAGE}%
-
-**User Stories Completed**:
-{AUTO_EXTRACTED_FROM_COMMITS}
-
-**Technical Implementation**:
-- **Architecture Pattern**: {DETECTED_PATTERN}
-- **New Dependencies**: {NEW_PACKAGE_ADDITIONS}
-- **API Changes**: {API_MODIFICATIONS}
-- **Database Changes**: {SCHEMA_CHANGES}
-
-**Quality Metrics**:
-- **Code Coverage**: {COVERAGE_PERCENTAGE}%
-- **Cyclomatic Complexity**: {COMPLEXITY_SCORE}
-- **Performance Benchmarks**: {PERFORMANCE_METRICS}
-- **Security Scan**: {SECURITY_SCORE}
-
-**Documentation Updates**:
-- [ ] API Documentation
-- [ ] User Guide Updates
-- [ ] Developer Documentation
-- [ ] Changelog Entry
-
-**Deployment Readiness**:
-- [ ] Feature Flags Configured
-- [ ] Rollback Plan Documented
-- [ ] Monitoring Alerts Set
-- [ ] Performance Baseline Established
-```
-
-## Git Integration & Analytics
-
-### Commit Pattern Analysis
+### Code Patterns Discovered
 ```javascript
-// Auto-analyze commit patterns for insights
-const commitAnalysis = {
-  patterns: {
-    "feat:": { count: 45, trend: "increasing", quality_score: 8.5 },
-    "fix:": { count: 23, trend: "stable", quality_score: 7.8 },
-    "refactor:": { count: 12, trend: "increasing", quality_score: 9.2 }
-  },
-  developer_insights: {
-    velocity: "above_average",
-    focus_areas: ["frontend", "api_integration"],
-    improvement_opportunities: ["test_coverage", "documentation"]
+// PATTERN: Error Handling Style
+// Discovered: All services use this pattern
+class ServiceError extends Error {
+  constructor(message, code, statusCode = 500) {
+    super(message);
+    this.code = code;
+    this.statusCode = statusCode;
   }
 }
-```
+// Usage: throw new ServiceError('User not found', 'USER_NOT_FOUND', 404);
 
-### Branch Strategy Tracking
-```markdown
-## 🌿 Branch Analytics
-**Current Strategy**: {GIT_FLOW|GITHUB_FLOW|GITLAB_FLOW}
-**Active Branches**: {BRANCH_COUNT}
-**Merge Frequency**: {MERGES_PER_WEEK}
-**Conflict Rate**: {CONFLICT_PERCENTAGE}%
-
-### Branch Health Score: {HEALTH_SCORE}/10
-- **Age Distribution**: {BRANCH_AGE_ANALYSIS}
-- **Activity Level**: {COMMIT_FREQUENCY}
-- **Integration Risk**: {MERGE_DIFFICULTY_PREDICTION}
-```
-
-## Advanced Learning System
-
-### Pattern Library Auto-Generation
-```yaml
-discovered_patterns:
-  - name: "error_handling_pattern_v2"
-    confidence: 0.95
-    usage_frequency: 15
-    effectiveness: 8.7
-    template: |
-      try {
-        const result = await riskyOperation();
-        return { success: true, data: result };
-      } catch (error) {
-        logger.error('Operation failed', { error, context });
-        return { success: false, error: error.message };
-      }
-    
-  - name: "component_composition_pattern"
-    confidence: 0.88
-    usage_frequency: 23
-    effectiveness: 9.1
-    template: |
-      // Composition over inheritance pattern
-      const useFeature = (config) => {
-        const state = useSharedState(config);
-        const actions = useSharedActions(state);
-        return { ...state, ...actions };
-      };
-```
-
-### Knowledge Graph Construction
-```mermaid
-graph TD
-    A[Decision: API Architecture] --> B[Pattern: REST + GraphQL]
-    B --> C[Implementation: Apollo Server]
-    C --> D[Learning: Schema Stitching]
-    D --> E[Next Decision: Caching Strategy]
-    
-    F[Bug: Memory Leak] --> G[Root Cause: Event Listeners]
-    G --> H[Solution: Cleanup Pattern]
-    H --> I[Prevention: Linting Rule]
-```
-
-## Performance Intelligence
-
-### Development Velocity Tracking
-```javascript
-const velocityMetrics = {
-  story_points_per_sprint: {
-    current: 34,
-    average: 28,
-    trend: "improving",
-    confidence: 0.92
-  },
-  cycle_time: {
-    feature_development: "3.2 days",
-    bug_resolution: "1.1 days",
-    code_review: "4.3 hours"
-  },
-  quality_indicators: {
-    bug_rate: "2.1 per 100 commits",
-    test_coverage: "87%",
-    code_review_approval_rate: "94%"
-  }
+// PATTERN: API Response Format
+// Every endpoint returns this structure
+{
+  success: boolean,
+  data?: any,
+  error?: { code: string, message: string },
+  metadata?: { timestamp: number, version: string }
 }
+
+// PATTERN: Async Handler Wrapper
+// All routes wrapped for error catching
+const asyncHandler = (fn) => (req, res, next) =>
+  Promise.resolve(fn(req, res, next)).catch(next);
+```
+### Architecture Insights
+```yaml
+DISCOVERED_ARCHITECTURE:
+  style: "Domain-Driven Design"
+  layers:
+    - controllers: "HTTP handling only"
+    - services: "Business logic"
+    - repositories: "Data access"
+    - entities: "Domain models"
+  
+  conventions:
+    - "Services never import controllers"
+    - "Repositories return entities, not DB models"
+    - "All external APIs wrapped in services"
 ```
 
-### Predictive Insights
+## 🔍 Problem-Solution Pairs
+
+### Solved Challenges
 ```markdown
-## 🔮 Predictive Analytics
-**Next Likely Blocker**: Database migration complexity (68% confidence)
-**Estimated Completion**: {PREDICTED_DATE} ±3 days
-**Resource Bottleneck**: Frontend development (predicted in 2 sprints)
-**Technical Debt Accumulation**: Moderate risk (+15% over 3 months)
+PROBLEM: "Database connections exhausted under load"
+SOLUTION: Implemented connection pooling with these settings:
+  - max: 20
+  - idleTimeoutMillis: 30000
+  - connectionTimeoutMillis: 2000
+RESULT: 10x improvement in concurrent request handling
+FILES: database/config.ts
 
-### Recommendations:
-1. **High Priority**: Schedule database optimization review
-2. **Medium Priority**: Cross-train team member on frontend frameworks
-3. **Low Priority**: Establish refactoring schedule for technical debt
-
-### ENHANCEMENT: Automated Intelligence Insights
-**Code Quality Trajectory**: {QUALITY_TREND_ANALYSIS}
-- **Maintainability Index**: {MAINTAINABILITY_SCORE} (target: >85)
-- **Cyclomatic Complexity**: {COMPLEXITY_TREND} (↗️ needs attention)
-- **Test Coverage Gaps**: {UNCOVERED_AREAS} (critical paths)
-- **Security Posture**: {SECURITY_SCORE}/100 (vulnerabilities: {VULN_COUNT})
-
-**Developer Productivity Intelligence**:
-- **Velocity Trend**: {VELOCITY_ANALYSIS} (sustainable/concerning)
-- **Focus Time Quality**: {FOCUS_METRICS} (interruption analysis)
-- **Knowledge Transfer Risk**: {BUS_FACTOR_ANALYSIS} (team dependencies)
-- **Skill Development**: {LEARNING_VELOCITY} (technology adoption rate)
-
-**Architectural Health**:
-- **Design Patterns Consistency**: {PATTERN_ADHERENCE}%
-- **Architecture Drift**: {DRIFT_ANALYSIS} (from documented design)
-- **Performance Regression Risk**: {PERFORMANCE_RISK_SCORE}
-- **Scalability Bottlenecks**: {SCALABILITY_ANALYSIS}
-
-**Business Impact Forecast**:
-- **Feature Delivery Confidence**: {DELIVERY_CONFIDENCE}% (next milestone)
-- **Technical Risk Assessment**: {RISK_MATRIX} (impact x probability)
-- **Innovation Velocity**: {INNOVATION_RATE} (new feature capability)
-- **Competitive Advantage**: {ADVANTAGE_ANALYSIS} (technical differentiation)
+PROBLEM: "JWT tokens not refreshing reliably"
+SOLUTION: Added mutex lock for refresh operations
+LEARNING: Concurrent refresh attempts caused race conditions
+CODE: See auth.service.ts:refreshToken()
 ```
 
-## AI Instructions for Advanced Journaling
+## 💡 Technical Decisions
 
-### Context-Aware Updates
-1. **Scan recent git commits** for patterns and changes
-2. **Analyze file modifications** to understand scope of work
-3. **Extract technical decisions** from code changes and comments
-4. **Generate insights** based on pattern recognition
-5. **Predict potential issues** based on change analysis
-6. **Update metrics** automatically from measurable data
+### Decision Record
+```markdown
+DATE: 2024-03-14
+DECISION: "Use Redis for session storage instead of JWT"
+CONTEXT: 
+  - Need ability to revoke sessions
+  - Horizontal scaling required
+  - Mobile app needs long-lived sessions
+CONSEQUENCES:
+  + Can invalidate sessions instantly
+  + Better session management
+  - Additional infrastructure (Redis)
+  - Slightly more complex
+REFERENCE: ADR-001
 
-### Smart Triggers
-- **Auto-journal on significant commits** (>100 lines changed)
-- **Decision logging on config changes**
-- **Pattern detection on repeated code structures**
-- **Performance alerts on database/API changes**
-- **Documentation prompts on public API changes**
+DATE: 2024-03-15  
+DECISION: "Implement soft deletes across all entities"
+REASONING:
+  - Audit requirements
+  - Data recovery needs
+  - Referential integrity
+IMPLEMENTATION: 
+  - Added deletedAt timestamp
+  - Updated all queries to filter
+  - Created restoration endpoints
+```
 
-### Integration Commands
-- `"Smart journal update"` → Full AI analysis and update
-- `"Pattern analysis"` → Detect and document new patterns
-- `"Decision capture [description]"` → Structured decision logging
-- `"Performance checkpoint"` → Metrics snapshot and analysis
-- `"Knowledge graph update"` → Update learning connections
-- `"Predictive analysis"` → Generate insights and recommendations
+## 🚀 Performance Discoveries
 
-This advanced journaling system learns from your development patterns, automatically captures important context, and provides intelligent insights to improve your development process over time.
+### Optimization Log
+```javascript
+// OPTIMIZATION: N+1 Query Fix
+// BEFORE: 500ms for 100 users
+const users = await User.findAll();
+for (const user of users) {
+  user.posts = await Post.findByUserId(user.id);
+}
+
+// AFTER: 50ms for 100 users  
+const users = await User.findAll({
+  include: [{ model: Post, as: 'posts' }]
+});
+
+// LEARNING: Always eager-load relationships when iterating
+```
+
+### Performance Patterns
+```
+IDENTIFIED_BOTTLENECKS:
+1. Database queries in loops → Use includes/joins
+2. Synchronous file operations → Use async versions
+3. Large JSON parsing → Stream processing
+4. Unindexed queries → Added indexes on foreign keys
+```
+
+## 🐛 Bug Patterns & Fixes
+
+### Common Bug Categories
+```markdown
+BUG_PATTERN: "Timezone Issues"
+SYMPTOMS:
+  - Dates off by hours
+  - Scheduling at wrong times
+ROOT_CAUSE: Server in UTC, clients in various timezones
+SOLUTION: 
+  - Always store UTC in database
+  - Convert at display layer only
+  - Use moment-timezone for conversions
+PREVENTION: ESLint rule for Date() usage
+
+BUG_PATTERN: "Memory Leaks in Event Listeners"
+SYMPTOMS:
+  - Increasing memory usage
+  - Eventual crashes
+CAUSE: Not removing listeners
+FIX: Always cleanup in useEffect/componentWillUnmount
+```
+
+## 📈 Development Velocity Insights
+
+### What Speeds Us Up
+```
+ACCELERATORS:
+✓ Consistent code patterns (30% faster)
+✓ Comprehensive types (catches errors early)
+✓ Good test coverage (confident refactoring)
+✓ Clear naming conventions (less cognitive load)
+✓ Documented decisions (no re-litigation)
+```
+
+### What Slows Us Down
+```
+FRICTION_POINTS:
+✗ Inconsistent error handling (-20% velocity)
+✗ Missing TypeScript types (-15% velocity)
+✗ Unclear module boundaries (-25% velocity)
+✗ Not following established patterns (-30% velocity)
+```
+
+## 🧪 Testing Insights
+
+### Effective Test Patterns
+```javascript
+// PATTERN: Test Data Builders
+// Discovered this reduces test maintenance by 50%
+const createTestUser = (overrides = {}) => ({
+  id: faker.datatype.uuid(),
+  email: faker.internet.email(),
+  name: faker.name.fullName(),
+  ...overrides
+});
+
+// PATTERN: Integration Test Structure
+describe('POST /api/users', () => {
+  beforeEach(resetDatabase);
+  afterEach(cleanupTestData);
+  
+  it('should create user with valid data', async () => {
+    // Arrange
+    const userData = createTestUser();
+    
+    // Act
+    const response = await request(app)
+      .post('/api/users')
+      .send(userData);
+    
+    // Assert
+    expect(response.status).toBe(201);
+    expect(response.body.data.email).toBe(userData.email);
+  });
+});
+```
+
+## 🔧 Tooling Discoveries
+
+### Useful Scripts/Commands
+```bash
+# DISCOVERED: Quickly find unused exports
+npm run find-unused-exports
+
+# LEARNED: Database migration rollback process
+npm run migrate:rollback -- --steps=2
+
+# HELPFUL: Generate TypeScript types from DB
+npm run generate:types
+```
+
+## 📊 Code Quality Metrics
+
+### Quality Indicators Tracked
+```
+METRICS_THAT_MATTER:
+- Test coverage > 80% = fewer production bugs
+- Cyclomatic complexity < 10 = maintainable
+- Duplication < 3% = DRY principle
+- TypeScript coverage = 100% = type safety
+
+CORRELATION_FOUND:
+- Files > 200 lines = 3x more bugs
+- Functions > 50 lines = harder to test
+- > 5 parameters = should be object
+```
+
+## 🎓 Learning Log
+
+### Key Learnings
+```markdown
+LEARNING: "Database transactions are critical for consistency"
+CONTEXT: Race condition causing duplicate records
+SOLUTION: Wrap related operations in transactions
+IMPACT: Zero data inconsistencies since implementation
+
+LEARNING: "Premature optimization is evil, but not profiling is worse"
+STORY: Spent 2 days optimizing wrong endpoint
+LESSON: Always measure before optimizing
+TOOL: Added performance monitoring
+```
+
+## 💾 Journal Maintenance
+
+### Weekly Review Questions
+1. What patterns emerged this week?
+2. What slowed development down?
+3. What decisions need documenting?
+4. What could be automated?
+5. What knowledge needs sharing?
+
+Remember: Today's problem solution is tomorrow's pattern!

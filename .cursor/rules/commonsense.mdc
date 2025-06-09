@@ -4,162 +4,239 @@ globs:
 alwaysApply: true
 ---
 ---
-description: Common sense development principles to avoid over-engineering and technical debt
+description: Core development best practices and common sense patterns
 globs: ["**/*"]
 alwaysApply: true
 ---
 
 # Common Sense Development Rules
 
-You are a pragmatic senior developer who values **simplicity, maintainability, and efficiency** above all else. Your goal is to write code that works reliably and can be easily understood and maintained by any developer.
+## 🎯 Code Quality First
 
-## Core Principles
+### Simple > Complex
+```javascript
+// ✅ GOOD: Clear intent
+const isActive = user.status === 'active';
 
-### 1. SIMPLICITY FIRST
-- **Always choose the simplest solution that works**
-- If there are multiple ways to accomplish something, pick the one with fewer moving parts
-- Avoid over-engineering - don't build for hypothetical future requirements
-- Use existing patterns and conventions rather than inventing new ones
-- Prefer explicit, readable code over clever, complex solutions
+// ❌ BAD: Unnecessary complexity
+const isActive = (() => user?.status?.toLowerCase() === 'active')();
+```
 
-### 2. EFFICIENCY OVER PERFECTION
-- **Start with the most straightforward implementation**
-- Don't optimize prematurely - make it work first, then optimize if needed
-- Use battle-tested libraries and frameworks rather than rolling your own
-- Prefer composition over inheritance when possible
-- Choose readable variable names over short, cryptic ones
+### Early Returns
+```javascript
+// ✅ GOOD: Fail fast
+function processUser(user) {
+  if (!user) return null;
+  if (!user.email) return null;
+  
+  // Main logic here
+}
 
-### 3. AVOID TECHNICAL DEBT
-- **Write code that the next developer (including future you) will thank you for**
-- Include clear comments for complex business logic
-- Keep functions small and focused on a single responsibility
-- Don't repeat yourself (DRY) but also don't abstract too early
-- Remove dead code immediately - don't comment it out "just in case"
+// ❌ BAD: Nested hell
+function processUser(user) {
+  if (user) {
+    if (user.email) {
+      // Main logic here
+    }
+  }
+}
+```
 
-## Implementation Guidelines
+## 🛡️ Error Handling
 
-### File Organization
-- Follow established project structure conventions
-- Group related functionality together
-- Use descriptive folder and file names
-- Keep configuration files in standard locations
+### Always Handle Errors
+```javascript
+// ✅ GOOD: Explicit handling
+try {
+  const data = await fetchData();
+  return processData(data);
+} catch (error) {
+  console.error('Failed to fetch data:', error);
+  return defaultData;
+}
 
-### Code Structure
-- **Write self-documenting code with clear naming**
-- Keep functions under 50 lines when possible
-- Limit function parameters (max 3-4 parameters)
-- Use early returns to reduce nesting
-- Separate concerns - business logic, data access, and presentation
+// ❌ BAD: Silent failures
+const data = await fetchData();
+return processData(data);
+```
 
-### Error Handling
-- **Handle errors gracefully and explicitly**
-- Use try-catch blocks appropriately
-- Provide meaningful error messages
-- Log errors with sufficient context
-- Fail fast when configuration is invalid
+### Meaningful Error Messages
+```javascript
+// ✅ GOOD: Context included
+throw new Error(`User ${userId} not found in database`);
 
-### Dependencies
-- **Minimize external dependencies**
-- Choose well-maintained, popular libraries
-- Pin dependency versions in production
-- Regularly audit and update dependencies
-- Remove unused dependencies immediately
+// ❌ BAD: Generic
+throw new Error('Error');
+```
 
-## Anti-Patterns to Avoid
+## 📝 Naming Conventions
 
-### ❌ DON'T DO THESE:
-- **Over-abstracting**: Don't create interfaces or classes until you actually need them
-- **Premature optimization**: Don't optimize for performance until you measure a problem
-- **Feature creep**: Don't add features that weren't requested
-- **Complex inheritance**: Prefer composition and interfaces
-- **Magic numbers**: Use named constants instead
-- **God functions**: Keep functions focused and small
-- **Inconsistent naming**: Stick to project conventions
-- **Nested callbacks**: Use async/await or proper promise chaining
-- **Inline styles or hardcoded values**: Use configuration files
-- **Commenting obvious code**: Comments should explain "why", not "what"
+### Be Descriptive
+```javascript
+// ✅ GOOD
+const userAuthenticationToken = generateToken();
+const isEmailValid = validateEmail(email);
 
-### ✅ DO THESE INSTEAD:
-- **Use established patterns**: Follow framework conventions and community standards
-- **Start simple**: Begin with the most basic working solution
-- **Iterate**: Improve incrementally based on actual needs
-- **Test early**: Write tests for critical business logic
-- **Document decisions**: Explain architectural choices in README or comments
-- **Use type safety**: Leverage TypeScript, type hints, or similar when available
-- **Follow SOLID principles**: But don't over-engineer them
-- **Use existing solutions**: Don't reinvent the wheel
-- **Keep it readable**: Code is read more often than it's written
-- **Make it maintainable**: Consider the next developer who will work on this
+// ❌ BAD
+const token = genTok();
+const valid = check(e);
+```
 
-## Language-Specific Guidance
+### Boolean Naming
+```javascript
+// ✅ GOOD: Clear boolean names
+const isLoading = true;
+const hasPermission = false;
+const canEdit = true;
 
-### JavaScript/TypeScript
-- Use modern ES6+ features appropriately
-- Prefer `const` and `let` over `var`
-- Use async/await over Promise chains
-- Leverage TypeScript for better developer experience
-- Use proper module imports/exports
+// ❌ BAD: Ambiguous
+const loading = true;
+const permission = false;
+const edit = true;
+```
 
-### Python
-- Follow PEP 8 style guide
-- Use list comprehensions appropriately (don't overdo it)
-- Leverage built-in libraries before adding dependencies
-- Use type hints for better code clarity
-- Follow the "Pythonic" way of doing things
+## 🔄 Function Design
 
-### General
-- Use meaningful variable and function names
-- Keep indentation consistent
-- Add proper spacing and formatting
-- Use version control effectively with clear commit messages
-- Write README files that explain how to run and deploy the project
+### Single Responsibility
+```javascript
+// ✅ GOOD: One clear purpose
+function calculateTax(amount, rate) {
+  return amount * rate;
+}
 
-## Decision Framework
+function formatCurrency(amount) {
+  return `$${amount.toFixed(2)}`;
+}
 
-When faced with multiple implementation options, ask:
+// ❌ BAD: Multiple responsibilities
+function calculateAndFormat(amount, rate) {
+  const tax = amount * rate;
+  return `$${tax.toFixed(2)}`;
+}
+```
 
-1. **Which solution is easier to understand?**
-2. **Which has fewer potential failure points?**
-3. **Which follows existing project patterns?**
-4. **Which will be easier to test?**
-5. **Which will be easier to change later?**
-6. **Which uses fewer external dependencies?**
-7. **Which can be implemented faster without sacrificing quality?**
+### Consistent Return Types
+```javascript
+// ✅ GOOD: Always returns same type
+function findUser(id) {
+  const user = users.find(u => u.id === id);
+  return user || null;
+}
+// ❌ BAD: Mixed returns
+function findUser(id) {
+  const user = users.find(u => u.id === id);
+  if (!user) return 'Not found';
+  return user;
+}
+```
 
-Choose the option that scores best across these criteria.
+## 🚀 Performance Patterns
 
-### ENHANCEMENT: Intelligent Decision Support
+### Avoid Premature Optimization
+```javascript
+// Only optimize when you have metrics showing a problem
+// Profile first, optimize second
+```
 
-**Complexity Assessment Framework**:
-- **Cognitive Load Score**: Rate 1-10 (target: <6 for maintainability)
-- **Bus Factor Analysis**: How many people can maintain this code?
-- **Future Change Probability**: How likely is this code to need modification?
-- **Integration Risk**: How many systems does this change affect?
+### Use Appropriate Data Structures
+```javascript
+// ✅ GOOD: O(1) lookup
+const userMap = new Map(users.map(u => [u.id, u]));
+const user = userMap.get(userId);
 
-**Over-Engineering Detection Patterns**:
-- **Abstraction Depth**: >3 levels = warning flag
-- **Interface Complexity**: >5 methods = consider splitting
-- **Configuration Options**: >10 configs = probably over-engineered
-- **Dependency Count**: >7 dependencies = architectural review needed
+// ❌ BAD: O(n) lookup for frequent operations
+const user = users.find(u => u.id === userId);
+```
 
-**Pragmatic Implementation Checks**:
-- **YAGNI Verification**: Is this feature actually requested?
-- **Current Need Validation**: Does this solve today's problem?
-- **ROI Assessment**: Implementation time vs actual benefit
-- **Maintenance Cost**: Long-term ownership and support burden
+## 💾 State Management
 
-## Code Review Mindset
+### Immutability
+```javascript
+// ✅ GOOD: Create new objects
+const updatedUser = { ...user, name: newName };
+const newItems = [...items, newItem];
 
-Before submitting any code, ask:
-- Would I be comfortable debugging this code at 3 AM?
-- Can a junior developer understand what this code does?
-- Have I removed all TODO comments and debug statements?
-- Does this code follow the existing project patterns?
-- Have I tested the happy path and at least one error case?
-- Is there anything I can remove to make this simpler?
+// ❌ BAD: Mutate directly
+user.name = newName;
+items.push(newItem);
+```
 
-## Remember
+### Clear State Updates
+```javascript
+// ✅ GOOD: Explicit state changes
+setState(prevState => ({
+  ...prevState,
+  isLoading: false,
+  data: newData
+}));
 
-**Perfect is the enemy of good.** Your job is to solve problems efficiently and maintainably, not to showcase every design pattern you know. Write code that works, is reliable, and can be easily modified when requirements inevitably change.
+// ❌ BAD: Unclear mutations
+state.isLoading = false;
+state.data = newData;
+```
 
-**When in doubt, choose the boring solution.** It's usually the right one.
+## 🧪 Testing Mindset
+
+### Write Testable Code
+```javascript
+// ✅ GOOD: Pure, testable
+function calculateDiscount(price, percentage) {
+  return price * (1 - percentage / 100);
+}
+
+// ❌ BAD: Hard to test
+function calculateDiscount() {
+  const price = document.getElementById('price').value;
+  const percentage = globalDiscount;
+  return price * (1 - percentage / 100);
+}
+```
+
+## 📚 Documentation
+
+### Document Why, Not What
+```javascript
+// ✅ GOOD: Explains reasoning
+// Use exponential backoff to avoid overwhelming the server
+const delay = Math.min(1000 * Math.pow(2, retryCount), 30000);
+
+// ❌ BAD: States obvious
+// Multiply 1000 by 2 to the power of retryCount
+const delay = 1000 * Math.pow(2, retryCount);
+```
+
+## 🔐 Security Basics
+
+### Never Trust User Input
+```javascript
+// ✅ GOOD: Validate and sanitize
+const userId = parseInt(req.params.id, 10);
+if (isNaN(userId) || userId <= 0) {
+  return res.status(400).json({ error: 'Invalid user ID' });
+}
+
+// ❌ BAD: Direct usage
+const query = `SELECT * FROM users WHERE id = ${req.params.id}`;
+```
+
+## 🎭 Code Style
+
+### Consistency Over Personal Preference
+- Follow project conventions
+- Use formatters (Prettier, ESLint)
+- Don't mix styles in same file
+
+### Remove Dead Code
+- Delete commented code
+- Remove unused imports
+- Clean up console.logs
+
+## ⚡ Quick Decisions
+
+When unsure:
+1. Choose readability
+2. Choose maintainability
+3. Choose simplicity
+4. Choose explicitness
+
+Remember: Code is read 10x more than written. Optimize for the reader!

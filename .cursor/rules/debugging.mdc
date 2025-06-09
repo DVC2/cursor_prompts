@@ -2,97 +2,391 @@
 description: Optimized debugging strategies to minimize premium tool calls
 globs: *
 alwaysApply: true
-priority: high
+---
+---
+description: Systematic debugging approaches with minimal tool calls
+globs: 
+  - "**/*.ts"
+  - "**/*.js"
+  - "**/*.py"
+  - "**/*.java"
+  - "**/*.go"
+  - "**/*.rb"
+  - "**/*.php"
+  - "**/*.cs"
+  - "**/*.cpp"
+alwaysApply: false
 ---
 
-# Cursor Debugging Optimization
+# Efficient Debugging Strategies
 
-You are a highly efficient debugging assistant focused on minimizing premium tool calls. Prioritize static analysis, pattern recognition, and strategic tool usage.
+## 🎯 Debugging Philosophy
 
-## Priority Framework
+### The 5-Step Debug Protocol
+```
+1. REPRODUCE → Confirm the issue exists
+2. ISOLATE → Find the smallest failing case
+3. DIAGNOSE → Identify root cause
+4. FIX → Apply minimal solution
+5. VERIFY → Ensure fix works
+```
 
-1. **OBSERVE**: Thoroughly analyze available information before any tool calls
-2. **HYPOTHESIZE**: Form specific theories about the bug source
-3. **TEST**: Use minimal, targeted tool calls to validate hypotheses
-4. **RESOLVE**: Implement the most efficient fix
+## 🔍 Initial Assessment
 
-## Tool Call Optimization
+### Quick Triage (1 Tool Call)
+```bash
+# Get complete context in one call
+echo "=== Debug Context ===" && \
+pwd && \
+echo -e "\n--- Error State ---" && \
+tail -50 error.log 2>/dev/null || echo "No error log" && \
+echo -e "\n--- Recent Changes ---" && \
+git diff --stat HEAD~1 2>/dev/null || echo "No git" && \
+echo -e "\n--- Running Processes ---" && \
+ps aux | grep -E "(node|python|java)" | grep -v grep | head -5 && \
+echo -e "\n--- Test Status ---" && \
+npm test -- --no-coverage 2>&1 | tail -20 || echo "No tests"
+```
 
-- **File Operations**:
-  - Read a file once and cache its content mentally
-  - Focus on specific sections (using regex/line numbers) instead of full reads
-  - Prioritize files in predictable error locations (config files, entry points)
+## 🐛 Common Bug Patterns
 
-- **Terminal Commands**:
-  - Combine multiple operations in single commands using pipes and operators
-  - Use focused flags to limit output scope (e.g., `grep -n 'error'` vs reading entire logs)
-  - Execute targeted tests instead of full test suites
-  - Create one-line debug scripts rather than multiple separate commands
+### Type 1: Null/Undefined Errors
+```javascript
+// SYMPTOM: "Cannot read property 'x' of undefined"
 
-- **Web Searches**:
-  - Only search for framework-specific error codes or highly unusual errors
-  - Use precise technical terms to get relevant results in one query
+// ❌ BAD DEBUG: Random changes
+console.log(user);
+console.log(user.profile);
+console.log(user.profile.name);
 
-## Framework-Agnostic Patterns
+// ✅ GOOD DEBUG: Systematic check
+console.log({
+  hasUser: !!user,
+  hasProfile: !!user?.profile,
+  profileKeys: user?.profile ? Object.keys(user.profile) : 'none',
+  nameValue: user?.profile?.name
+});
 
-- **Common Bug Classes**:
-  - Type/interface mismatches
-  - Async control flow issues
-  - Side effect management
-  - Configuration misalignment
-  - Version incompatibilities
-  - Memory/resource leaks
+// FIX PATTERN:
+const name = user?.profile?.name ?? 'Default';
+```
 
-- **Efficient Fixes**:
-  - Provide complete solutions rather than incrementally testing multiple approaches
-  - Explain rationale with each fix to prevent similar bugs
-  - Include preventative measures in the same solution
+### Type 2: Async/Promise Issues
+```javascript
+// SYMPTOM: "Promise pending" or race conditions
 
-## Duplication Prevention Strategy
+// ✅ DIAGNOSTIC PATTERN:
+console.log({
+  stage: 'before-await',
+  timestamp: Date.now()
+});
 
-- **Memory Management**:
-  - Track all created files, functions, and components by name and purpose
-  - Before creating new elements, verify if similar functionality already exists
-  - Search for patterns like "create", "new", or "implement" in previous conversations
+const result = await operation();
+
+console.log({
+  stage: 'after-await',
+  timestamp: Date.now(),
+  hasResult: !!result,
+  resultType: typeof result
+});
+
+// FIX PATTERNS:
+// 1. Missing await
+const data = await fetchData();
+
+// 2. Race condition
+const [result1, result2] = await Promise.all([op1(), op2()]);
+
+// 3. Error handling
+try {
+  const data = await riskyOperation();
+} catch (error) {
+  console.error('Operation failed:', error.message);
+}
+```
+
+### Type 3: State Management Issues
+```javascript
+// SYMPTOM: "State not updating" or "Stale values"
+
+// ✅ STATE DEBUG HELPER:
+function debugState(label, state) {
+  console.log(`[${label}]`, {
+    state: JSON.stringify(state, null, 2),
+    type: typeof state,
+    isArray: Array.isArray(state),
+    timestamp: new Date().toISOString()
+  });
+}
+
+// USE:
+debugState('Before update', currentState);
+updateState(newValue);
+debugState('After update', currentState);
+```
+
+## 🔧 Debugging Tools
+
+### Universal Debug Logger
+```javascript
+// Add to any file for instant debugging
+const DEBUG = {
+  log: (label, data) => {
+    console.log(`\n🔍 [${label}]`, {
+      data,
+      stack: new Error().stack.split('\n')[2],
+      time: new Date().toISOString()
+    });
+  },
   
-- **Codebase Awareness**:
-  - Maintain a mental index of existing project components
-  - Before implementing a solution, search for similar patterns in the codebase
-  - Consider refactoring existing code rather than duplicating functionality
+  checkpoint: (name) => {
+    console.log(`✓ Checkpoint: ${name} at ${new Date().toISOString()}`);
+  },
   
-- **Naming Conventions**:
-  - Use consistent naming patterns for similar entities
-  - Verify new names against existing elements before creation
-  - Suggest standardized naming schemes when multiple related items exist
+  measure: async (label, fn) => {
+    const start = performance.now();
+    try {
+      const result = await fn();
+      console.log(`⏱️ ${label}: ${(performance.now() - start).toFixed(2)}ms`);
+      return result;
+    } catch (error) {
+      console.log(`❌ ${label} failed after ${(performance.now() - start).toFixed(2)}ms`);
+      throw error;
+    }
+  }
+};
 
-- **File Operation Checks**:
-  - Before suggesting to create a new file, search for similarly named or purposed files
-  - Check class/component hierarchies for potential reuse opportunities
-  - When modifying functionality, update existing implementations instead of creating alternatives
+// Usage:
+DEBUG.checkpoint('Starting process');
+const data = await DEBUG.measure('Database query', () => db.query(sql));
+DEBUG.log('Query result', data);
+```
 
-- **Implementation Verification**:
-  - Before implementing a requested feature, verify it doesn't already exist
-  - Check for partially implemented or similarly functioning components
-  - Suggest extending existing code rather than duplicating
+### Error Boundary Pattern
+```javascript
+// Wrap suspicious code
+function safeTry(operation, fallback = null) {
+  try {
+    return operation();
+  } catch (error) {
+    console.error('Safe operation failed:', {
+      error: error.message,
+      stack: error.stack,
+      operation: operation.toString()
+    });
+    return fallback;
+  }
+}
 
-## Memory Management
+// Usage:
+const config = safeTry(() => JSON.parse(configString), {});
+```
 
-Keep track of:
-- File structures already examined
-- Error patterns already identified
-- Previous debugging attempts
-- Confirmed working components
+## 📊 Systematic Debugging
 
-## Integration Mode
+### Binary Search Debug
+```javascript
+// For "worked before, broken now" issues
+// 1. Find last working commit
+git bisect start
+git bisect bad HEAD
+git bisect good abc123  // last known good
 
-Whenever terminal commands are needed:
-1. First suggest a FULL command that combines all operations
-2. If using debugging tools (like debuggers), suggest breakpoints that capture multiple values at once
-3. Use conditional logging that captures multiple scenarios in a single run
+// 2. Test each commit
+npm test || git bisect bad
+npm test && git bisect good
 
-## Reporting
+// 3. Find exact breaking change
+git bisect reset
+git show <bad-commit>
+```
 
-- Provide concise summaries of findings
-- Focus on actionable insights rather than verbose analysis
-- Highlight root causes over symptoms
-- Suggest comprehensive monitoring for recurrence prevention
+### Divide & Conquer
+```javascript
+// For complex flows
+function debugFlow() {
+  console.log('Step 1: Input validation');
+  // If fails here, input issue
+  
+  console.log('Step 2: Data transformation');
+  // If fails here, transformation issue
+  
+  console.log('Step 3: Business logic');
+  // If fails here, logic issue
+  
+  console.log('Step 4: Output formatting');
+  // If fails here, formatting issue
+}
+```
+
+## 🎪 Performance Debugging
+
+### Quick Performance Check
+```javascript
+// One-liner performance wrapper
+const perf = (fn, label = 'Operation') => {
+  const start = Date.now();
+  const result = fn();
+  console.log(`${label}: ${Date.now() - start}ms`);
+  return result;
+};
+
+// Usage:
+const data = perf(() => processLargeDataset(), 'Dataset processing');
+```
+
+### Memory Leak Detection
+```javascript
+// Memory snapshot helper
+const memorySnapshot = (label) => {
+  if (global.gc) global.gc();
+  const usage = process.memoryUsage();
+  console.log(`Memory [${label}]:`, {
+    heapUsed: `${(usage.heapUsed / 1024 / 1024).toFixed(2)} MB`,
+    external: `${(usage.external / 1024 / 1024).toFixed(2)} MB`,
+    total: `${(usage.heapTotal / 1024 / 1024).toFixed(2)} MB`
+  });
+};
+
+// Track memory growth
+memorySnapshot('Before operation');
+// ... do operation ...
+memorySnapshot('After operation');
+```
+
+## 🔄 Debug Patterns by Error Type
+
+### Network/API Errors
+```bash
+# Quick network debug (1 call)
+curl -i -X GET "http://api.endpoint.com/path" \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json" \
+  -w "\n\nTime: %{time_total}s\nHTTP Code: %{http_code}\n" \
+  || echo "Connection failed"
+```
+
+### Database Errors
+```sql
+-- Quick DB debug
+SELECT 
+  'Connections' as metric, 
+  count(*) as value 
+FROM pg_stat_activity
+UNION ALL
+SELECT 
+  'Slow queries', 
+  count(*) 
+FROM pg_stat_activity 
+WHERE state = 'active' 
+  AND query_start < now() - interval '5 seconds';
+```
+
+### File System Errors
+```bash
+# File system debug (1 call)
+ls -la problematic/path/ 2>&1 && \
+df -h . && \
+echo "Permissions:" && \
+stat -c "%a %n" problematic/path/* 2>/dev/null | head -10
+```
+
+## 💡 Smart Logging
+
+### Conditional Debug Output
+```javascript
+// Only log when debugging
+const DEBUG_MODE = process.env.DEBUG === 'true';
+
+function debugLog(...args) {
+  if (DEBUG_MODE) {
+    console.log('[DEBUG]', new Date().toISOString(), ...args);
+  }
+}
+
+// Strategic placement
+debugLog('Entering function', { params });
+// ... code ...
+debugLog('Exiting function', { result });
+```
+
+### Structured Error Info
+```javascript
+// Enhanced error for debugging
+class DebugError extends Error {
+  constructor(message, context = {}) {
+    super(message);
+    this.name = 'DebugError';
+    this.context = context;
+    this.timestamp = new Date().toISOString();
+    this.stack = new Error().stack;
+  }
+  
+  toJSON() {
+    return {
+      name: this.name,
+      message: this.message,
+      context: this.context,
+      timestamp: this.timestamp,
+      stack: this.stack.split('\n').slice(0, 5)
+    };
+  }
+}
+
+// Usage:
+throw new DebugError('User not found', {
+  userId,
+  searchParams,
+  dbQuery: query.toString()
+});
+```
+
+## 🚨 Debug Checklist
+
+### Before Deep Diving
+```
+□ Is error message clear?
+□ Can I reproduce consistently?
+□ Did it work before?
+□ What changed recently?
+□ Is it environment-specific?
+```
+
+### Quick Fixes to Try
+```
+□ Clear cache/node_modules
+□ Restart services
+□ Check environment variables
+□ Verify dependencies versions
+□ Test in isolation
+```
+
+## 📈 Debug Efficiency
+
+### Time Budget
+```
+5 min:  Read error, check obvious issues
+10 min: Reproduce and isolate
+15 min: Apply systematic debugging
+20 min: Consider asking for help
+30 min: Take break, return with fresh eyes
+```
+
+### Debug Complexity Levels
+```
+Level 1: Console.log at error point
+Level 2: Binary search for issue
+Level 3: Use debugger/breakpoints
+Level 4: Add comprehensive logging
+Level 5: Profile and analyze deeply
+```
+
+## 🎯 Golden Rules
+
+1. **Reproduce before fixing**
+2. **Change one thing at a time**
+3. **Keep a debug log**
+4. **Verify fixes work**
+5. **Document the solution**
+
+Remember: The best debugger is a systematic approach!

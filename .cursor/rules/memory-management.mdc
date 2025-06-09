@@ -1,474 +1,220 @@
 ---
 description: 
 globs: 
-alwaysApply: false
----
----
-description: Advanced memory management with intelligent context pruning, pattern recognition, and performance optimization
-globs: ["**/*", ".cursor/memory/**/*", ".git/**/*"]
 alwaysApply: true
 ---
+---
+description: Intelligent context management and memory optimization strategies
+globs: ["**/*"]
+alwaysApply: false
+---
 
-# Advanced Memory Management & Contextual Intelligence
+# Memory Management & Context Optimization
 
-You are an intelligent memory system that maintains optimal project context through smart pruning, pattern recognition, and predictive context loading. You adapt to development patterns and optimize for performance and relevance.
+## 🧠 Context Priority Levels
 
-@.cursor/memory/context.md
-@.cursor/memory/patterns.md
-@.cursor/memory/preferences.md
-@.cursor/memory/analytics.md
-
-## Intelligent Memory Architecture
-
-### Context Layers & Priority System
-```yaml
-memory_hierarchy:
-  tier_1_critical: # Always loaded (max 2KB)
-    - active_session_context
-    - current_file_focus
-    - immediate_blockers
-    - critical_decisions_pending
-    retention: "session"
-    
-  tier_2_important: # Loaded when relevant (max 8KB)
-    - recent_patterns_discovered
-    - project_preferences
-    - architecture_decisions
-    - team_knowledge
-    retention: "1 week"
-    
-  tier_3_historical: # Loaded on demand (max 32KB)
-    - old_session_logs
-    - deprecated_patterns
-    - completed_features
-    - archived_decisions
-    retention: "1 month"
-    
-  tier_4_archive: # Compressed storage (unlimited)
-    - yearly_retrospectives
-    - major_refactoring_history
-    - technology_evolution
-    retention: "permanent"
+### Level 1: CRITICAL (Always Retain)
+```
+- Current task definition
+- Active file being edited
+- Recent error messages
+- Explicit user requirements
+- Security/authentication context
 ```
 
-### Smart Context Pruning Algorithm
+### Level 2: IMPORTANT (Retain if Relevant)
+```
+- Related file imports/exports
+- Function signatures being used
+- Recent code modifications
+- Database schema if querying
+- API contracts if integrating
+```
+
+### Level 3: HELPFUL (Include if Space)
+```
+- Project conventions discovered
+- Similar patterns in codebase
+- Previous solutions to similar problems
+- Performance considerations
+```
+
+### Level 4: ARCHIVE (Prune First)
+```
+- Successful operations from >10 messages ago
+- Resolved errors
+- Exploratory dead ends
+- Duplicate information
+```
+
+## 📊 Context Pruning Strategy
+
+### When Context Gets Full:
+```
+1. Remove Level 4 items first
+2. Summarize Level 3 items
+3. Compress Level 2 (keep signatures only)
+4. NEVER remove Level 1
+```
+
+### Smart Compression Examples:
 ```javascript
-const contextPruning = {
-  relevance_scoring: {
-    factors: {
-      recency: { weight: 0.25, decay: "exponential_7_days" },
-      frequency: { weight: 0.20, window: "30_days" },
-      importance: { weight: 0.30, manual_boost: 2.0 },
-      relationship: { weight: 0.15, graph_centrality: true },
-      performance: { weight: 0.10, access_pattern: true }
-    },
-    
-    thresholds: {
-      keep: "> 7.0",
-      archive: "3.0 - 7.0", 
-      delete: "< 3.0"
-    }
-  },
-  
-  auto_optimization: {
-    trigger_conditions: [
-      "memory_size > 50KB",
-      "context_load_time > 500ms",
-      "relevance_drift > 30%"
-    ],
-    
-    optimization_strategies: [
-      "compress_old_sessions",
-      "merge_similar_patterns", 
-      "archive_completed_features",
-      "remove_stale_references"
-    ]
-  }
-}
+// BEFORE: Full context
+"User implemented a UserController with methods: 
+- getUsers(): returns all users with pagination
+- getUser(id): returns single user by ID  
+- createUser(data): creates new user with validation
+- updateUser(id, data): updates existing user
+- deleteUser(id): soft deletes user"
+
+// AFTER: Compressed
+"UserController implemented with CRUD operations (get/create/update/delete)"
 ```
 
-## Dynamic Context Management
+## 🎯 Focus Maintenance
 
-### Adaptive Context Loading
-```markdown
-# 🧠 Intelligent Context State
-*Auto-optimized: {TIMESTAMP} | Load time: {LOAD_TIME}ms | Relevance: {RELEVANCE_SCORE}%*
-
-## 🎯 Current Focus Context
-**Primary Focus**: {ACTIVE_FOCUS_AREA}
-**Context Depth**: {CONTEXT_DEPTH_LEVEL}
-**Cognitive Load**: {LOAD_PERCENTAGE}% of optimal
-**Switch Frequency**: {CONTEXT_SWITCHES_TODAY} switches today
-
-### Active Working Memory
-**Hot Variables**: {HOT_VARIABLES_LIST}
-**Active Patterns**: {CURRENT_PATTERNS_IN_USE}
-**Immediate Dependencies**: {ACTIVE_DEPENDENCIES}
-**Context Relationships**: {RELATED_CONTEXTS}
-
-### Smart Context Prediction
-**Next Likely Context**: {PREDICTED_NEXT_CONTEXT} ({CONFIDENCE}% confidence)
-**Preloaded Context**: {PRELOADED_CONTEXTS}
-**Context Transition Cost**: {SWITCH_COST_ESTIMATE}ms
-
-## 🔄 Session Continuity Engine
-**Session ID**: {SESSION_IDENTIFIER}
-**Continuation Score**: {CONTINUITY_SCORE}/10
-**Knowledge Transfer**: {TRANSFER_EFFICIENCY}%
-
-### Intelligent Session Recovery
-**Last Safe State**: {LAST_CHECKPOINT_TIME}
-**Recovery Options**: 
-- Quick Resume: {QUICK_RESUME_AVAILABLE}
-- Full Context: {FULL_CONTEXT_AVAILABLE}  
-- Pattern Match: {PATTERN_MATCH_RECOVERY}
-
-**Auto-Recovery Triggers**:
-- System restart detected
-- Long idle period (>{IDLE_THRESHOLD} minutes)
-- Context corruption detected
-- Manual recovery request
+### Track Current Objective
+```
+CURRENT_TASK: [Implementation of user authentication]
+SUBTASK: [Adding JWT validation middleware]
+BLOCKED_BY: [Need database schema]
+NEXT_STEP: [Test the middleware]
 ```
 
-### Pattern Recognition Engine
-```yaml
-pattern_intelligence:
-  auto_detection:
-    code_patterns:
-      threshold: 3_occurrences
-      confidence: 0.8
-      categories: ["architecture", "error_handling", "optimization"]
-      
-    workflow_patterns:
-      threshold: 2_occurrences
-      confidence: 0.7
-      categories: ["debugging", "testing", "deployment"]
-      
-    decision_patterns:
-      threshold: 1_occurrence
-      confidence: 0.9
-      categories: ["architecture", "tool_choice", "process"]
-      
-  # ENHANCEMENT: Advanced Pattern Detection
-  enhanced_pattern_detection:
-    code_smell_detection:
-      enabled: true
-      patterns: ["god_class", "long_method", "duplicate_code", "dead_code"]
-      auto_refactor_suggestions: true
-      severity_scoring: "1-10 scale with remediation priority"
-      
-    architecture_drift_alerts:
-      enabled: true
-      baseline_architecture: "microservices_with_event_sourcing"
-      drift_threshold: "15% deviation from documented patterns"
-      alert_frequency: "weekly_analysis"
-      drift_categories: ["coupling_increase", "abstraction_violations", "pattern_inconsistency"]
-      
-    performance_regression_patterns:
-      enabled: true
-      monitoring_metrics: ["response_time", "memory_usage", "cpu_utilization", "db_query_time"]
-      regression_threshold: "20% performance degradation"
-      pattern_correlation: "link performance drops to code changes"
-      auto_optimization_suggestions: true
-      
-    security_anti_patterns:
-      enabled: true
-      scan_patterns: ["hardcoded_secrets", "sql_injection_risk", "xss_vulnerabilities", "insecure_dependencies"]
-      compliance_frameworks: ["OWASP_Top_10", "NIST_Cybersecurity"]
-      auto_remediation_suggestions: true
-      
-  pattern_evolution:
-    version_tracking: true
-    effectiveness_scoring: true
-    usage_analytics: true
-    auto_refinement: true
-    
-    # ENHANCEMENT: Pattern Learning Intelligence
-    learning_intelligence:
-      success_pattern_identification:
-        criteria: ["low_bug_rate", "high_performance", "easy_maintenance"]
-        auto_promotion: "successful patterns become templates"
-        team_sharing: "best patterns shared across projects"
-        
-      failure_pattern_recognition:
-        criteria: ["high_bug_rate", "performance_issues", "maintenance_difficulty"]
-        auto_deprecation: "problematic patterns flagged for removal"
-        alternative_suggestions: "better pattern recommendations"
-        
-      adaptive_pattern_refinement:
-        continuous_learning: true
-        pattern_effectiveness_tracking: true
-        automatic_template_updates: true
-        context_aware_suggestions: true
-    
-  pattern_suggestion:
-    context_matching: true
-    similarity_threshold: 0.75
-    timing_optimization: true
-    conflict_detection: true
-    
-    # ENHANCEMENT: Intelligent Pattern Application
-    smart_pattern_matching:
-      contextual_relevance: "match patterns to current development context"
-      skill_level_adaptation: "adjust pattern complexity to developer experience"
-      project_phase_awareness: "different patterns for prototyping vs production"
-      technology_stack_alignment: "patterns specific to current tech stack"
+### Context Switching
+```
+When switching tasks:
+1. Summarize completed work
+2. Clear Level 3-4 context
+3. Load new task context
+4. Preserve learned patterns
 ```
 
-## Advanced Analytics & Intelligence
+## 💡 Pattern Recognition & Storage
 
-### Memory Performance Metrics
+### Store Reusable Patterns
 ```javascript
-const memoryAnalytics = {
-  performance_metrics: {
-    context_load_time: {
-      current: "245ms",
-      target: "<300ms", 
-      trend: "improving",
-      optimization_impact: "+15% faster"
-    },
-    
-    relevance_accuracy: {
-      current: "92%",
-      target: ">90%",
-      trend: "stable", 
-      false_positives: "3%"
-    },
-    
-    memory_efficiency: {
-      storage_used: "47KB/50KB",
-      compression_ratio: "3.2:1",
-      pruning_effectiveness: "85%"
-    }
-  },
-  
-  learning_intelligence: {
-    pattern_discovery_rate: "2.3 patterns/week",
-    pattern_accuracy: "89%",
-    pattern_reuse_rate: "67%",
-    adaptation_speed: "2.1 days to stabilize"
-  },
-  
-  context_optimization: {
-    prediction_accuracy: "84%",
-    preload_hit_rate: "78%", 
-    context_switch_reduction: "31%",
-    cognitive_load_score: "6.2/10 (optimal)"
-  }
+// PATTERN DETECTED: Error handling in this project
+try {
+  // operation
+} catch (error) {
+  logger.error(`${context}: ${error.message}`, { error, metadata });
+  throw new CustomError(error.message, ERROR_CODES.OPERATION_FAILED);
 }
+// STORE: Project uses custom error wrapper with logging
 ```
 
-### Intelligent Knowledge Graph
-```mermaid
-graph TD
-    subgraph "Active Context"
-        A[Current Feature: Auth]
-        B[Active Files: auth.js, user.js]
-        C[Current Pattern: JWT handling]
-    end
-    
-    subgraph "Related Knowledge"
-        D[Previous: OAuth integration]
-        E[Pattern: Error handling]
-        F[Decision: JWT vs Sessions]
-    end
-    
-    subgraph "Predictions"
-        G[Next: User profile]
-        H[Likely Issue: Token refresh]
-        I[Suggested Pattern: Middleware]
-    end
-    
-    A --> D
-    A --> G
-    B --> E
-    C --> F
-    C --> I
-    E --> H
-    
-    classDef active fill:#4CAF50
-    classDef related fill:#2196F3
-    classDef predicted fill:#FF9800
-    
-    class A,B,C active
-    class D,E,F related
-    class G,H,I predicted
+### Project Conventions
+```
+DISCOVERED PATTERNS:
+- File naming: kebab-case.ts
+- Exports: Named exports preferred
+- Testing: *.test.ts files
+- API routes: /api/v1/resource
 ```
 
-### Contextual Intelligence Engine
-```yaml
-intelligence_layers:
-  semantic_understanding:
-    code_semantics: 
-      ast_analysis: true
-      dependency_mapping: true
-      complexity_scoring: true
-      
-    project_semantics:
-      architecture_awareness: true
-      business_logic_mapping: true
-      data_flow_understanding: true
-      
-  predictive_modeling:
-    next_action_prediction:
-      accuracy: 76%
-      confidence_threshold: 0.7
-      learning_rate: 0.1
-      
-    context_need_prediction:
-      proactive_loading: true
-      memory_preallocation: true
-      pattern_anticipation: true
-      
-  adaptive_learning:
-    user_behavior_modeling:
-      coding_style_adaptation: true
-      preference_learning: true
-      efficiency_optimization: true
-      
-    project_evolution_tracking:
-      architecture_drift_detection: true
-      complexity_trend_analysis: true
-      quality_pattern_recognition: true
+## 🔍 Information Retrieval
+
+### Quick Reference Format
+```
+FILE_STRUCTURE:
+src/
+  controllers/ (business logic)
+  services/ (external integrations)
+  utils/ (shared helpers)
+  types/ (TypeScript interfaces)
+
+KEY_FUNCTIONS:
+- authenticate() in auth.service.ts
+- validateRequest() in middleware/
+- handleError() in utils/error.ts
 ```
 
-## Advanced Memory Operations
-
-### Smart Memory Queries
-```markdown
-## 🔍 Intelligent Memory Search
-
-### Natural Language Queries:
-- "What was that authentication pattern we used last month?"
-- "Show me the database decision rationale"
-- "Find similar bugs to the current issue"
-- "What patterns work best for error handling here?"
-
-### Semantic Search Results:
-**Query**: "authentication pattern"
-**Results** (ranked by relevance):
-1. **JWT Implementation Pattern** | Relevance: 94% | Used: 5 times
-2. **OAuth Integration Flow** | Relevance: 87% | Used: 2 times  
-3. **Session Management** | Relevance: 78% | Used: 3 times
-
-### Context-Aware Suggestions:
-**Current Context**: Working on user login
-**Suggested Memory**:
-- Previous login bug resolutions (3 entries)
-- Authentication test patterns (2 patterns)
-- Security considerations notes (1 decision log)
+### Relationship Mapping
+```
+UserController -> UserService -> UserRepository
+     |                |               |
+     v                v               v
+validation.ts    external-api.ts   database.ts
 ```
 
-### Memory Synchronization & Backup
-```yaml
-memory_sync:
-  auto_backup:
-    frequency: "every_30_minutes"
-    retention: "30_days"
-    compression: "lz4"
-    encryption: "aes_256"
-    
-  version_control:
-    git_integration: true
-    diff_tracking: true
-    rollback_capability: true
-    merge_conflict_resolution: true
-    
-  cloud_sync:
-    provider: "configurable"
-    real_time: false
-    conflict_resolution: "last_write_wins"
-    offline_capability: true
-    
-  team_sharing:
-    selective_sharing: true
-    privacy_filters: ["personal_notes", "local_paths"]
-    collaboration_mode: "opt_in"
-    knowledge_aggregation: true
+## 📈 Context Quality Metrics
+
+### Good Context Indicators:
+- Can answer "what was I doing?" instantly
+- Know which files are affected
+- Understand dependencies
+- Remember key decisions
+
+### Bad Context Indicators:
+- Repeating same questions
+- Lost track of requirements
+- Forgetting recent changes
+- Circular discussions
+
+## 🚀 Optimization Techniques
+
+### Batch Related Information
+```
+// Instead of scattered context:
+"User model has email field"
+"User model has password field"  
+"User model has createdAt field"
+
+// Batch together:
+"User model: { email, password, createdAt, updatedAt, role }"
 ```
 
-## Context-Aware File Integration
+### Use References
+```
+// Instead of repeating:
+"The validateEmail function checks format and domain"
+"The validateEmail function returns boolean"
 
-### Smart File Monitoring
-```javascript
-const fileIntelligence = {
-  watching_patterns: {
-    high_priority: [
-      "**/{config,src}/**/*.{js,ts,py}",
-      "**/package.json",
-      "**/*.md",
-      ".env*"
-    ],
-    
-    change_significance: {
-      config_changes: "high",
-      core_logic_changes: "high", 
-      test_changes: "medium",
-      documentation_changes: "low"
-    },
-    
-    auto_context_update: {
-      trigger_threshold: "significant_change",
-      batch_updates: true,
-      debounce_time: "5_seconds"
-    }
-  },
-  
-  file_relationship_mapping: {
-    dependency_tracking: true,
-    import_analysis: true,
-    test_coverage_correlation: true,
-    documentation_linkage: true
-  }
-}
+// Reference once:
+validateEmail(): boolean - checks format and domain
+// Then refer as: "use validateEmail() defined above"
 ```
 
-### Intelligent Reference System
-```markdown
-## 📎 Smart File References
+## 💾 Session Continuity
 
-### Auto-Detected Relationships:
-**Primary File**: `src/auth/login.js`
-**Related Context**:
-- Tests: `tests/auth/login.test.js` (coverage: 89%)
-- Config: `config/auth.json` (last modified: 2 days ago)
-- Documentation: `docs/authentication.md` (needs update)
-- Dependencies: `jwt`, `bcrypt`, `express-session`
-
-### Context Influence Map:
-- **High Influence**: Database schema changes → Auth logic updates needed
-- **Medium Influence**: UI changes → API contract review required  
-- **Low Influence**: Styling changes → No auth impact
-
-### Suggested Actions:
-- [ ] Update auth documentation after recent JWT changes
-- [ ] Review test coverage for new password complexity rules
-- [ ] Consider security audit for recent authentication flow changes
+### End of Session Summary
+```
+SESSION SUMMARY:
+- Implemented: User authentication with JWT
+- Modified: auth.service.ts, user.controller.ts
+- Decisions: Used refresh tokens, 7-day expiry
+- TODO: Add rate limiting, implement logout
+- Gotchas: Remember to handle token refresh edge case
 ```
 
-## Advanced Memory Commands
+### Session Startup
+```
+RESUMING FROM:
+- Working on: [Feature name]
+- Last action: [What was completed]
+- Next step: [What needs doing]
+- Context: @previous-session-summary
+```
 
-### Intelligent Memory Operations
-- `"Memory health check"` → Comprehensive memory system analysis
-- `"Optimize context loading"` → Performance optimization routine
-- `"Pattern discovery"` → Scan for new patterns in recent work
-- `"Context prediction"` → Show predicted next contexts
-- `"Memory archaeology [term]"` → Deep search through all memory layers
-- `"Smart cleanup"` → Intelligent memory pruning and optimization
-- `"Context diff [timeframe]"` → Show memory changes over time
-- `"Memory blueprint"` → Generate memory configuration for new projects
+## 🎪 Memory Management Commands
 
-### Predictive Memory Features
-- `"Preload context for [feature]"` → Predictive context preparation
-- `"Memory forecast"` → Predict memory needs for upcoming work
-- `"Context similarity analysis"` → Find similar past contexts
-- `"Knowledge gap detection"` → Identify missing context areas
-- `"Memory efficiency report"` → Detailed performance analysis
+### Mental Commands to Use:
+```
+COMPRESS: Summarize current context
+PRUNE: Remove outdated information
+FOCUS: Narrow to current task only
+SNAPSHOT: Save current state
+RESTORE: Load previous context
+```
 
-### Collaborative Memory
-- `"Share memory subset [criteria]"` → Export shareable memory segments
-- `"Import team patterns"` → Integrate team knowledge patterns
-- `"Memory conflict resolution"` → Resolve memory inconsistencies
-- `"Knowledge base sync"` → Sync with external knowledge systems
+### Context Health Check:
+```
+Every 10 interactions:
+1. Is context still relevant?
+2. Any duplicate information?
+3. Missing critical context?
+4. Can I answer user's original request?
+```
 
-This advanced memory system learns from your development patterns, optimizes itself for performance, and provides intelligent context that evolves with your project needs.
+Remember: Quality > Quantity. Better to have 5 relevant facts than 50 irrelevant ones.
