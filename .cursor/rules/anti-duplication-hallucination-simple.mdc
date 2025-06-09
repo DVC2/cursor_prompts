@@ -1,0 +1,213 @@
+---
+description: Prevents code duplication and AI hallucination through verification-first development
+globs: 
+  - "**/*.ts"
+  - "**/*.tsx"
+  - "**/*.js"
+  - "**/*.jsx"
+  - "**/*.py"
+  - "**/*.java"
+  - "**/*.go"
+  - "**/*.cs"
+  - "**/*.cpp"
+  - "**/*.c"
+  - "**/*.h"
+  - "**/*.hpp"
+  - "**/*.rb"
+  - "**/*.php"
+alwaysApply: true
+---
+
+# Anti-Duplication & Anti-Hallucination Rules
+
+## 🛑 STOP Protocol: Before Writing ANY Code
+
+### Step 1: SEARCH FIRST
+```
+For ANY function/component/utility you're about to create:
+1. Global search: "function_name", "functionName", "function-name"
+2. Check standard locations: /utils, /helpers, /lib, /services, /common
+3. Look for name variations: getUser = fetchUser = loadUser = retrieveUser
+4. Check plurals: getItem vs getItems, user vs users
+```
+
+### Step 2: VERIFY EXISTENCE
+```
+For ANY import/API/method you're about to use:
+✓ Is it imported at the top of the file?
+✓ Is it in package.json/requirements.txt/go.mod?
+✓ Can you find it being used elsewhere in the codebase?
+
+If ANY answer is NO → DON'T USE IT
+```
+
+### Step 3: PATTERN CHECK
+```
+Before implementing:
+□ Does similar logic exist elsewhere?
+□ Is there an established pattern for this?
+□ Are you following existing conventions?
+```
+
+## ❌ Hallucination Red Flags
+
+### NEVER trust these assumptions:
+```javascript
+// ❌ "There's probably a utility for this..."
+import { validateEmail } from './utils';  // VERIFY FIRST!
+
+// ❌ "The framework should have this..."
+const data = await fetchWithRetry(url);   // DOES THIS EXIST?
+
+// ❌ "This method should exist..."
+user.save();                              // CHECK THE API!
+
+// ❌ "This prop is probably supported..."
+<Button variant="gradient" />             // VERIFY PROPS!
+
+// ❌ "This hook must be available..."
+const [data] = useLocalStorage('key');    // IS IT IMPORTED?
+```
+
+## ✅ Correct Verification Flow
+
+### Example: Need to validate an email
+```javascript
+// 1. First, search for existing validation
+// Search: "validateEmail", "email validation", "isValidEmail"
+
+// 2. If found:
+import { validateEmail } from './utils/validation'; // Use existing
+
+// 3. If NOT found, check for libraries:
+// Look in package.json for validation libraries
+
+// 4. If no libraries, implement inline:
+const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+// 5. Consider extracting if used multiple times
+```
+
+## 🔍 Duplication Detection Patterns
+
+### Signs you're about to duplicate:
+- Similar function with different prefix: `get*`, `fetch*`, `load*`, `retrieve*`
+- Same conditional logic in multiple places
+- Repeated API call patterns
+- Similar data transformations
+- Common validation logic
+- Repeated error handling
+
+### Before creating a new file/function:
+```
+SEARCH QUERIES TO RUN:
+1. Core function name: "sendEmail", "send_email", "send-email"
+2. Related terms: "email", "mail", "smtp", "notification"
+3. Common prefixes: "handle", "process", "manage", "execute"
+4. File patterns: "*email*", "*mail*", "*notification*"
+```
+
+## 📋 Quick Decision Tree
+
+```
+Need to implement something?
+    ↓
+Can you find it with search? → YES → Import and use it
+    ↓ NO
+Is it a one-liner? → YES → Implement inline
+    ↓ NO
+Will it be used elsewhere? → YES → Create in /utils or /helpers
+    ↓ NO
+Implement in current file
+```
+
+## 🚨 Common Hallucination Traps
+
+### React/Frontend:
+```javascript
+// ❌ These hooks often DON'T exist by default:
+useLocalStorage()    // Custom hook - verify first!
+useFetch()          // Custom hook - verify first!
+useDebounce()       // Custom hook - verify first!
+
+// ✅ These are built-in React hooks:
+useState()          // ✓ Real React hook
+useEffect()         // ✓ Real React hook
+useContext()        // ✓ Real React hook
+```
+
+### Node.js/Backend:
+```javascript
+// ❌ These often DON'T exist:
+fs.readFileAsync()   // Should be fs.promises.readFile
+fetch()              // Not in Node < 18, need node-fetch
+db.query()           // Depends on your DB setup
+
+// ✅ Verify your environment:
+// Check Node version, installed packages, configured middleware
+```
+
+### Utilities:
+```javascript
+// ❌ Don't assume these exist:
+deepClone()         // Check if lodash is installed
+debounce()          // Check if lodash is installed
+formatCurrency()    // Probably custom - search first
+```
+
+## 📊 Verification Checklist
+
+### Before EVERY code generation:
+```
+□ Searched for existing implementations? (3+ search terms)
+□ Checked common directories? (/utils, /helpers, /lib)
+□ Verified all imports exist?
+□ Confirmed API methods are real?
+□ Following existing patterns?
+□ No phantom properties or methods?
+```
+
+### Quick Commands:
+```bash
+# Search for function
+grep -r "functionName" --include="*.js" --include="*.ts"
+
+# Find imports
+grep -r "import.*functionName" 
+
+# Check if package exists
+cat package.json | grep "packageName"
+
+# Find usage examples
+grep -r "\.methodName(" --include="*.js"
+```
+
+## 🎯 Golden Rules
+
+1. **When in doubt, SEARCH** - It's faster to search than to duplicate
+2. **No convenient assumptions** - If it seems too convenient, verify it
+3. **Follow the pattern** - If 5 files do it one way, don't be the 6th way
+4. **Explicit > Implicit** - Better to import clearly than assume availability
+5. **Document when creating** - If you create a new utility, comment its purpose
+
+## 💡 Pro Tips
+
+### For Large Codebases:
+- Map common utilities once, reference your mental map
+- Note naming conventions early (camelCase vs snake_case)
+- Identify the "utils" directory structure
+
+### For Team Projects:
+- Check recent commits for similar features
+- Look at related feature implementations
+- Follow established module boundaries
+
+### For Frameworks:
+- Know what's built-in vs what's custom
+- Check framework version for available features
+- Don't assume latest features in older versions
+
+---
+
+**Remember**: Every duplicate weakens the codebase. Every hallucination wastes time. 
+**VERIFY FIRST, CODE SECOND.**
