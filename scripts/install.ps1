@@ -75,8 +75,8 @@ $RuleSets = @{
         "commonsense.mdc",
         "efficiency.mdc", 
         "debugging.mdc",
-        "terminal-optimization.mdc",
-        "anti-duplication.mdc"
+        "terminal.mdc",
+        "audit.mdc"
     )
     Team = @()
     All = @()
@@ -258,7 +258,7 @@ function Show-InstallationOptions {
     Write-Host "1. Essential" -ForegroundColor Cyan -NoNewline
     Write-Host " (Recommended for individuals)"
     Write-Host "     • Core efficiency and debugging rules"
-    Write-Host "     • Rules: commonsense, efficiency, debugging, terminal-optimization, anti-duplication"
+            Write-Host "     • Rules: commonsense, efficiency, debugging, terminal, audit"
     Write-Host "     • Best for: Solo developers, small projects"
     Write-Host ""
     
@@ -413,8 +413,8 @@ function Show-RuleInfo {
             "commonsense" { Write-Host "  • commonsense.mdc - Best practices and mistake prevention" }
             "efficiency" { Write-Host "  • efficiency.mdc - Tool call optimization and resource management" }
             "debugging" { Write-Host "  • debugging.mdc - Efficient debugging with minimal tool calls" }
-            "terminal-optimization" { Write-Host "  • terminal-optimization.mdc - Optimized terminal operations" }
-            "anti-duplication" { Write-Host "  • anti-duplication.mdc - Prevents duplicate operations" }
+                    "terminal" { Write-Host "  • terminal.mdc - Optimized terminal operations" }
+        "audit" { Write-Host "  • audit.mdc - Comprehensive code quality assurance" }
             "ADR" { Write-Host "  • ADR.mdc - Architectural Decision Records automation" }
             "session-coordinator" { Write-Host "  • session-coordinator.mdc - Session continuity and handoffs" }
             "memory-management" { Write-Host "  • memory-management.mdc - Advanced memory and context management" }

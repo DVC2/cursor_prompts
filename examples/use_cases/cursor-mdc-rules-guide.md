@@ -20,7 +20,7 @@ mkdir -p .cursor/rules
 
 # 2. Add essential rules (copy from artifacts above)
 .cursor/rules/
-├── anti-duplication-hallucination.mdc
+├── audit.mdc
 ├── terminal.mdc
 ├── commonsense.mdc
 ├── efficiency.mdc
@@ -50,22 +50,22 @@ mkdir -p .cursor/rules
 ```bash
 # Core protection + efficiency (5 rules)
 .cursor/rules/
-├── anti-duplication-hallucination.mdc  # Prevents mistakes
-├── terminal.mdc                        # 60-80% fewer calls
 ├── commonsense.mdc                     # Best practices
 ├── efficiency.mdc                      # Optimizes all tools
-└── debugging.mdc                       # Systematic debugging
+├── debugging.mdc                       # Systematic debugging
+├── terminal.mdc                        # 60-80% fewer calls
+└── audit.mdc                           # Comprehensive code auditing
 ```
 
 ### Method 2: Full Suite (9 rules)
 ```bash
-# All capabilities
+# All capabilities (9 rules)
 .cursor/rules/
-├── anti-duplication-hallucination.mdc
-├── terminal.mdc
-├── commonsense.mdc
-├── efficiency.mdc
-├── debugging.mdc
+├── audit.mdc                           # Comprehensive auditing
+├── commonsense.mdc                     # Best practices
+├── efficiency.mdc                      # Optimizes all tools
+├── debugging.mdc                       # Systematic debugging
+├── terminal.mdc                        # Terminal optimization
 ├── memory-management.mdc               # Smart context
 ├── session-coordinator.mdc             # Continuity
 ├── development-journal.mdc             # Learning
@@ -81,21 +81,21 @@ Choose based on your needs:
 
 ## 📖 Rule Overview
 
-### 🛡️ **anti-duplication-hallucination.mdc**
-**Purpose**: Prevents creating duplicate code and using non-existent APIs
+### 🔍 **audit.mdc**
+**Purpose**: Comprehensive code quality assurance with surgical precision
 
 **Key Features**:
-- STOP protocol before writing code
-- Verification flow for all imports
-- Pattern detection for duplicates
-- Red flag identification
+- Recursive 4-phase audit loop
+- Thinking protocols for transparency
+- Surgical intervention approach
+- Evidence-based findings
 
 **When Active**: Always (all code files)
 
 **Impact**: 
-- ✅ Zero duplicate implementations
-- ✅ No phantom API usage
-- ✅ 100% import verification
+- ✅ Systematic code quality improvement
+- ✅ Root cause identification
+- ✅ Surgical fixes over band-aids
 
 ---
 

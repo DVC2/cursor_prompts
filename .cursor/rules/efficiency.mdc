@@ -1,7 +1,7 @@
 ---
-description: Comprehensive efficiency guidelines to minimize premium tool calls
-globs: *
-alwaysApply: true
+description: 
+globs: 
+alwaysApply: false
 ---
 ---
 description: Minimizes tool calls and maximizes AI agent efficiency

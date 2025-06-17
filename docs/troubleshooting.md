@@ -188,7 +188,7 @@ globs:
 #### **Strategy 2: Merge Compatible Rules** 🤝
 ```bash
 # Combine similar rules into one file
-# Example: Merge efficiency.mdc + terminal-optimization.mdc
+# Example: Merge efficiency.mdc + terminal.mdc
 # into development-efficiency.mdc
 ```
 
@@ -295,7 +295,7 @@ globs:
 # Merge similar rules to reduce overhead
 # Create consolidated-dev-rules.mdc combining:
 # - efficiency.mdc
-# - terminal-optimization.mdc
+# - terminal.mdc
 # - anti-duplication.mdc
 ```
 

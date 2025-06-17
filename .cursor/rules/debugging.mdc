@@ -1,7 +1,7 @@
 ---
-description: Optimized debugging strategies to minimize premium tool calls
-globs: *
-alwaysApply: true
+description: 
+globs: 
+alwaysApply: false
 ---
 ---
 description: Systematic debugging approaches with minimal tool calls

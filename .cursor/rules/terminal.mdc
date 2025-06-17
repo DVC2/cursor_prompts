@@ -1,7 +1,7 @@
 ---
-description: Terminal command optimization - maximum efficiency, minimum waste, zero tolerance for redundancy
-globs: **/*.sh, **/*.bash, **/Makefile, **/package.json, **/*.py, **/Dockerfile, **/.github/workflows/*.yml
-alwaysApply: true
+description: 
+globs: 
+alwaysApply: false
 ---
 ---
 description: Optimizes terminal operations for AI agents by minimizing tool calls and maximizing efficiency

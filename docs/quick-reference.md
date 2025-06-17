@@ -51,7 +51,7 @@ npm ls --depth=0 && \
 node --version
 ```
 
-### Terminal Optimization (terminal-optimization.mdc)
+### Terminal Optimization (terminal.mdc)
 
 **Purpose**: Optimize terminal operations for AI agents
 
@@ -77,9 +77,9 @@ touch src/{index,utils,config}.js && echo "✓ Files created"
 find . -name "*.test.js" -exec grep -l "describe" {} \; | head -10
 ```
 
-### Anti-Duplication (anti-duplication.mdc)
+### Code Auditing (audit.mdc)
 
-**Purpose**: Prevent duplicate operations and redundant tool calls
+**Purpose**: Comprehensive code quality assurance with surgical precision
 
 | Anti-Pattern ❌ | Optimized Pattern ✅ | Savings |
 |-----------------|---------------------|---------|

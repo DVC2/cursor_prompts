@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cursor Rules Metrics Dashboard</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js" 
+            integrity="sha384-p2jKmpx+B7Qo9DuCQNIvYWZL8xO0QE29BlyBrCqU4z4V5H3qqUYjg4V1JjjvjzLX"
+            crossorigin="anonymous"></script>
     <style>
         * {
             margin: 0;
@@ -395,35 +397,35 @@
                 <h3>📊 Add New Metrics</h3>
                 <div class="input-grid">
                     <div class="input-group">
-                        <label>Date</label>
+                        <label for="dateInput">Date</label>
                         <input type="date" id="dateInput" />
                     </div>
                     <div class="input-group">
-                        <label>Tool Calls (Before)</label>
+                        <label for="toolCallsBeforeInput">Tool Calls (Before)</label>
                         <input type="number" id="toolCallsBeforeInput" placeholder="e.g., 15" />
                     </div>
                     <div class="input-group">
-                        <label>Tool Calls (After)</label>
+                        <label for="toolCallsAfterInput">Tool Calls (After)</label>
                         <input type="number" id="toolCallsAfterInput" placeholder="e.g., 6" />
                     </div>
                     <div class="input-group">
-                        <label>Terminal Commands (Before)</label>
+                        <label for="terminalBeforeInput">Terminal Commands (Before)</label>
                         <input type="number" id="terminalBeforeInput" placeholder="e.g., 12" />
                     </div>
                     <div class="input-group">
-                        <label>Terminal Commands (After)</label>
+                        <label for="terminalAfterInput">Terminal Commands (After)</label>
                         <input type="number" id="terminalAfterInput" placeholder="e.g., 4" />
                     </div>
                     <div class="input-group">
-                        <label>Debug Time (Before, min)</label>
+                        <label for="debugTimeBeforeInput">Debug Time (Before, min)</label>
                         <input type="number" id="debugTimeBeforeInput" placeholder="e.g., 45" />
                     </div>
                     <div class="input-group">
-                        <label>Debug Time (After, min)</label>
+                        <label for="debugTimeAfterInput">Debug Time (After, min)</label>
                         <input type="number" id="debugTimeAfterInput" placeholder="e.g., 15" />
                     </div>
                     <div class="input-group">
-                        <label>Task Description</label>
+                        <label for="taskDescriptionInput">Task Description</label>
                         <input type="text" id="taskDescriptionInput" placeholder="e.g., React component creation" />
                     </div>
                 </div>

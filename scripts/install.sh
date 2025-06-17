@@ -32,7 +32,7 @@ BACKUP_DIR=".cursor/rules_backup_$(date +%Y%m%d_%H%M%S)"
 
 # Rule sets definition
 declare -A RULE_SETS
-RULE_SETS[essential]="commonsense.mdc efficiency.mdc debugging.mdc terminal-optimization.mdc anti-duplication.mdc"
+RULE_SETS[essential]="commonsense.mdc efficiency.mdc debugging.mdc terminal.mdc audit.mdc"
 RULE_SETS[team]="${RULE_SETS[essential]} ADR.mdc session-coordinator.mdc"
 RULE_SETS[all]="${RULE_SETS[team]} memory-management.mdc development-journal.mdc"
 
@@ -145,7 +145,7 @@ show_installation_options() {
     
     echo -e "  ${CYAN}1. Essential${NC} (Recommended for individuals)"
     echo "     • Core efficiency and debugging rules"
-    echo "     • Rules: commonsense, efficiency, debugging, terminal-optimization, anti-duplication"
+    echo "     • Rules: commonsense, efficiency, debugging, terminal, audit"
     echo "     • Best for: Solo developers, small projects"
     echo
     
@@ -276,8 +276,8 @@ show_rule_info() {
             "commonsense") echo "  • commonsense.mdc - Best practices and mistake prevention" ;;
             "efficiency") echo "  • efficiency.mdc - Tool call optimization and resource management" ;;
             "debugging") echo "  • debugging.mdc - Efficient debugging with minimal tool calls" ;;
-            "terminal-optimization") echo "  • terminal-optimization.mdc - Optimized terminal operations" ;;
-            "anti-duplication") echo "  • anti-duplication.mdc - Prevents duplicate operations" ;;
+                    "terminal") echo "  • terminal.mdc - Optimized terminal operations" ;;
+        "audit") echo "  • audit.mdc - Comprehensive code quality assurance" ;;
             "ADR") echo "  • ADR.mdc - Architectural Decision Records automation" ;;
             "session-coordinator") echo "  • session-coordinator.mdc - Session continuity and handoffs" ;;
             "memory-management") echo "  • memory-management.mdc - Advanced memory and context management" ;;
