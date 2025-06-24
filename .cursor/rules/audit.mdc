@@ -1,9 +1,4 @@
 ---
-description: 
-globs: 
-alwaysApply: true
----
----
 description: Recursive audit loop for comprehensive code quality assurance with surgical precision
 globs: ["**/*.{js,jsx,ts,tsx,py,java,c,cpp,go,rs,rb,php,swift,kt,scala,cs,vb,sql,sh,bash,yaml,yml,json,xml,html,css,scss,sass,less}", "**/Dockerfile", "**/.{gitignore,dockerignore,env,env.*}", "**/Makefile", "**/CMakeLists.txt", "**/package.json", "**/requirements.txt", "**/Cargo.toml", "**/go.mod", "**/pom.xml", "**/build.gradle", "**/*.{md,txt,rst}"]
 alwaysApply: true
