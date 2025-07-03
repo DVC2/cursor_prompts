@@ -57,9 +57,9 @@ mkdir -p .cursor/rules
 └── audit.mdc                           # Comprehensive code auditing
 ```
 
-### Method 2: Full Suite (9 rules)
+### Method 2: Full Suite (11 rules)
 ```bash
-# All capabilities (9 rules)
+# All capabilities (11 rules)
 .cursor/rules/
 ├── audit.mdc                           # Comprehensive auditing
 ├── commonsense.mdc                     # Best practices
@@ -69,15 +69,31 @@ mkdir -p .cursor/rules
 ├── memory-management.mdc               # Smart context
 ├── session-coordinator.mdc             # Continuity
 ├── development-journal.mdc             # Learning
-└── ADR.mdc                            # Decisions
+├── ADR.mdc                            # Decisions
+├── javascript.mdc                      # JavaScript ES2022+ patterns
+└── typescript.mdc                      # TypeScript mastery
 ```
 
-### Method 3: Custom Selection
+### Method 3: Language-Specific Setup
+```bash
+# JavaScript/TypeScript focused (7 rules)
+.cursor/rules/
+├── commonsense.mdc                     # Best practices
+├── efficiency.mdc                      # Optimizes all tools
+├── debugging.mdc                       # Systematic debugging
+├── terminal.mdc                        # Terminal optimization
+├── audit.mdc                           # Code auditing
+├── javascript.mdc                      # JavaScript ES2022+ patterns
+└── typescript.mdc                      # TypeScript mastery
+```
+
+### Method 4: Custom Selection
 Choose based on your needs:
 - **Solo Developer**: Essential 5
 - **Team Project**: Essential 5 + ADR.mdc
 - **Large Codebase**: Essential 5 + memory-management.mdc
-- **Long-term Project**: All 9 rules
+- **Long-term Project**: All 11 rules
+- **JS/TS Projects**: Language-Specific 7 rules
 
 ## 📖 Rule Overview
 
@@ -240,6 +256,44 @@ Choose based on your needs:
 - ✅ Clear decision trail
 - ✅ Better architecture
 - ✅ Team alignment
+
+---
+
+### 🔤 **javascript.mdc** *(Language-Specific)*
+**Purpose**: Modern JavaScript ES2022+ patterns and best practices
+
+**Key Features**:
+- Modern syntax enforcement
+- Async pattern optimization
+- Performance best practices
+- Functional programming patterns
+
+**When Active**: JavaScript/JSX files
+
+**Impact**:
+- ✅ Modern JavaScript patterns
+- ✅ Performance optimization
+- ✅ Clean async code
+- ✅ Functional programming
+
+---
+
+### 🔷 **typescript.mdc** *(Language-Specific)*
+**Purpose**: TypeScript type system mastery and architectural patterns
+
+**Key Features**:
+- Type safety enforcement
+- Advanced type patterns
+- Strict mode compliance
+- Architecture patterns
+
+**When Active**: TypeScript/TSX files
+
+**Impact**:
+- ✅ Type safety
+- ✅ Advanced TypeScript patterns
+- ✅ Better architecture
+- ✅ Fewer runtime errors
 
 ## 🔄 Practical Workflows
 

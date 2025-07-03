@@ -33,7 +33,8 @@ BACKUP_DIR=".cursor/rules_backup_$(date +%Y%m%d_%H%M%S)"
 # Rule sets definition
 declare -A RULE_SETS
 RULE_SETS[essential]="commonsense.mdc efficiency.mdc debugging.mdc terminal.mdc audit.mdc"
-RULE_SETS[team]="${RULE_SETS[essential]} ADR.mdc session-coordinator.mdc"
+RULE_SETS[language]="${RULE_SETS[essential]} javascript.mdc typescript.mdc"
+RULE_SETS[team]="${RULE_SETS[language]} ADR.mdc session-coordinator.mdc"
 RULE_SETS[all]="${RULE_SETS[team]} memory-management.mdc development-journal.mdc"
 
 # Function: Print colored output
@@ -143,42 +144,49 @@ backup_existing_rules() {
 show_installation_options() {
     print_header "Choose Installation Option"
     
-    echo -e "  ${CYAN}1. Essential${NC} (Recommended for individuals)"
+    echo -e "  ${CYAN}1. Essential${NC} (Core rules only)"
     echo "     • Core efficiency and debugging rules"
     echo "     • Rules: commonsense, efficiency, debugging, terminal, audit"
-    echo "     • Best for: Solo developers, small projects"
+    echo "     • Best for: Any language, minimal setup"
     echo
     
-    echo -e "  ${YELLOW}2. Team${NC} (Recommended for teams)"
-    echo "     • Essential rules + team coordination"
+    echo -e "  ${GREEN}2. Language${NC} (Recommended for JS/TS projects)"
+    echo "     • Essential rules + JavaScript & TypeScript patterns"
+    echo "     • Additional: javascript, typescript"
+    echo "     • Best for: JavaScript/TypeScript development"
+    echo
+    
+    echo -e "  ${YELLOW}3. Team${NC} (Recommended for teams)"
+    echo "     • Language rules + team coordination"
     echo "     • Additional: ADR, session-coordinator"
     echo "     • Best for: Team projects, collaborative development"
     echo
     
-    echo -e "  ${PURPLE}3. All${NC} (Power users)"
+    echo -e "  ${PURPLE}4. All${NC} (Power users)"
     echo "     • Complete rule set with advanced features"
     echo "     • Additional: memory-management, development-journal"
     echo "     • Best for: Large projects, advanced workflows"
     echo
     
-    echo -e "  ${RED}4. Cancel${NC}"
+    echo -e "  ${RED}5. Cancel${NC}"
     echo
 }
 
 # Function: Get user choice
 get_user_choice() {
     while true; do
-        read -p "  Select option (1-4): " choice
+        read -p "  Select option (1-5): " choice
         case $choice in
             1) echo "essential"; return ;;
-            2) echo "team"; return ;;
-            3) echo "all"; return ;;
-            4) 
+            2) echo "language"; return ;;
+            3) echo "team"; return ;;
+            4) echo "all"; return ;;
+            5) 
                 print_color $BLUE "Installation cancelled."
                 exit 0
                 ;;
             *) 
-                print_color $RED "Invalid option. Please choose 1-4."
+                print_color $RED "Invalid option. Please choose 1-5."
                 ;;
         esac
     done
@@ -276,8 +284,10 @@ show_rule_info() {
             "commonsense") echo "  • commonsense.mdc - Best practices and mistake prevention" ;;
             "efficiency") echo "  • efficiency.mdc - Tool call optimization and resource management" ;;
             "debugging") echo "  • debugging.mdc - Efficient debugging with minimal tool calls" ;;
-                    "terminal") echo "  • terminal.mdc - Optimized terminal operations" ;;
-        "audit") echo "  • audit.mdc - Comprehensive code quality assurance" ;;
+            "terminal") echo "  • terminal.mdc - Optimized terminal operations" ;;
+            "audit") echo "  • audit.mdc - Comprehensive code quality assurance" ;;
+            "javascript") echo "  • javascript.mdc - JavaScript ES2022+ best practices and patterns" ;;
+            "typescript") echo "  • typescript.mdc - TypeScript type system mastery and patterns" ;;
             "ADR") echo "  • ADR.mdc - Architectural Decision Records automation" ;;
             "session-coordinator") echo "  • session-coordinator.mdc - Session continuity and handoffs" ;;
             "memory-management") echo "  • memory-management.mdc - Advanced memory and context management" ;;

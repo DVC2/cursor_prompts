@@ -30,7 +30,7 @@
 [CmdletBinding()]
 param(
     [Parameter(Mandatory = $false)]
-    [ValidateSet("Essential", "Team", "All")]
+    [ValidateSet("Essential", "Language", "Team", "All")]
     [string]$InstallationType,
     
     [Parameter(Mandatory = $false)]
@@ -78,12 +78,14 @@ $RuleSets = @{
         "terminal.mdc",
         "audit.mdc"
     )
+    Language = @()
     Team = @()
     All = @()
 }
 
-# Build Team and All rule sets
-$RuleSets.Team = $RuleSets.Essential + @("ADR.mdc", "session-coordinator.mdc")
+# Build Language, Team and All rule sets
+$RuleSets.Language = $RuleSets.Essential + @("javascript.mdc", "typescript.mdc")
+$RuleSets.Team = $RuleSets.Language + @("ADR.mdc", "session-coordinator.mdc")
 $RuleSets.All = $RuleSets.Team + @("memory-management.mdc", "development-journal.mdc")
 
 # Function: Write colored output
@@ -256,22 +258,30 @@ function Show-InstallationOptions {
     
     Write-Host "  " -NoNewline
     Write-Host "1. Essential" -ForegroundColor Cyan -NoNewline
-    Write-Host " (Recommended for individuals)"
+    Write-Host " (Core rules only)"
     Write-Host "     • Core efficiency and debugging rules"
-            Write-Host "     • Rules: commonsense, efficiency, debugging, terminal, audit"
-    Write-Host "     • Best for: Solo developers, small projects"
+    Write-Host "     • Rules: commonsense, efficiency, debugging, terminal, audit"
+    Write-Host "     • Best for: Any language, minimal setup"
     Write-Host ""
     
     Write-Host "  " -NoNewline
-    Write-Host "2. Team" -ForegroundColor Yellow -NoNewline
+    Write-Host "2. Language" -ForegroundColor Green -NoNewline
+    Write-Host " (Recommended for JS/TS projects)"
+    Write-Host "     • Essential rules + JavaScript & TypeScript patterns"
+    Write-Host "     • Additional: javascript, typescript"
+    Write-Host "     • Best for: JavaScript/TypeScript development"
+    Write-Host ""
+    
+    Write-Host "  " -NoNewline
+    Write-Host "3. Team" -ForegroundColor Yellow -NoNewline
     Write-Host " (Recommended for teams)"
-    Write-Host "     • Essential rules + team coordination"
+    Write-Host "     • Language rules + team coordination"
     Write-Host "     • Additional: ADR, session-coordinator"
     Write-Host "     • Best for: Team projects, collaborative development"
     Write-Host ""
     
     Write-Host "  " -NoNewline
-    Write-Host "3. All" -ForegroundColor Magenta -NoNewline
+    Write-Host "4. All" -ForegroundColor Magenta -NoNewline
     Write-Host " (Power users)"
     Write-Host "     • Complete rule set with advanced features"
     Write-Host "     • Additional: memory-management, development-journal"
@@ -279,24 +289,25 @@ function Show-InstallationOptions {
     Write-Host ""
     
     Write-Host "  " -NoNewline
-    Write-Host "4. Cancel" -ForegroundColor Red
+    Write-Host "5. Cancel" -ForegroundColor Red
     Write-Host ""
 }
 
 # Function: Get user choice
 function Get-UserChoice {
     while ($true) {
-        $choice = Read-Host "  Select option (1-4)"
+        $choice = Read-Host "  Select option (1-5)"
         switch ($choice) {
             "1" { return "Essential" }
-            "2" { return "Team" }
-            "3" { return "All" }
-            "4" { 
+            "2" { return "Language" }
+            "3" { return "Team" }
+            "4" { return "All" }
+            "5" { 
                 Write-ColoredMessage -Message "Installation cancelled." -Color $Colors.Blue
                 exit 0
             }
             default { 
-                Write-ColoredMessage -Message "Invalid option. Please choose 1-4." -Color $Colors.Red
+                Write-ColoredMessage -Message "Invalid option. Please choose 1-5." -Color $Colors.Red
             }
         }
     }
@@ -413,8 +424,10 @@ function Show-RuleInfo {
             "commonsense" { Write-Host "  • commonsense.mdc - Best practices and mistake prevention" }
             "efficiency" { Write-Host "  • efficiency.mdc - Tool call optimization and resource management" }
             "debugging" { Write-Host "  • debugging.mdc - Efficient debugging with minimal tool calls" }
-                    "terminal" { Write-Host "  • terminal.mdc - Optimized terminal operations" }
-        "audit" { Write-Host "  • audit.mdc - Comprehensive code quality assurance" }
+            "terminal" { Write-Host "  • terminal.mdc - Optimized terminal operations" }
+            "audit" { Write-Host "  • audit.mdc - Comprehensive code quality assurance" }
+            "javascript" { Write-Host "  • javascript.mdc - JavaScript ES2022+ best practices and patterns" }
+            "typescript" { Write-Host "  • typescript.mdc - TypeScript type system mastery and patterns" }
             "ADR" { Write-Host "  • ADR.mdc - Architectural Decision Records automation" }
             "session-coordinator" { Write-Host "  • session-coordinator.mdc - Session continuity and handoffs" }
             "memory-management" { Write-Host "  • memory-management.mdc - Advanced memory and context management" }

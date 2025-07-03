@@ -290,6 +290,101 @@ git branch --merged | grep -v "\*\|master\|main" | xargs -n 1 git branch -d
 
 ---
 
+## 🔤 Language-Specific Rules
+
+### JavaScript (javascript.mdc)
+
+**Purpose**: Modern JavaScript ES2022+ patterns and best practices
+
+| Pattern | Quick Command | Use Case |
+|---------|---------------|----------|
+| **Modern Syntax** | `grep -E "(const\|let)" src/**/*.js \| head -10` | Variable declarations audit |
+| **Async Patterns** | `grep -n "async\|await\|Promise" src/**/*.js` | Async code review |
+| **Performance** | `grep -E "(map\|filter\|reduce)" src/**/*.js` | Functional patterns |
+
+#### 📋 JavaScript Quick Commands
+
+```bash
+# 🔍 MODERN JS AUDIT
+echo "=== JavaScript Quality Check ===" && \
+echo "ES6+ features: $(grep -c -E "(const\|let\|=>\|\.\.\.)" src/**/*.js)" && \
+echo "Async patterns: $(grep -c -E "(async\|await\|Promise)" src/**/*.js)" && \
+echo "Arrow functions: $(grep -c "=>" src/**/*.js)" && \
+echo "✓ Modern JS usage analyzed"
+
+# 🔍 PERFORMANCE PATTERNS
+echo "=== Performance Check ===" && \
+echo "Array methods: $(grep -c -E "(map\|filter\|reduce)" src/**/*.js)" && \
+echo "Loops: $(grep -c -E "(for\|while)" src/**/*.js)" && \
+echo "DOM queries: $(grep -c -E "(querySelector\|getElementById)" src/**/*.js)" && \
+echo "✓ Performance patterns analyzed"
+
+# 🔍 BEST PRACTICES SCAN
+echo "=== Best Practices ===" && \
+echo "Error handling: $(grep -c -E "(try\|catch\|throw)" src/**/*.js)" && \
+echo "Immutability: $(grep -c -E "(Object\.freeze\|const)" src/**/*.js)" && \
+echo "Destructuring: $(grep -c -E "(\{.*\}.*=\|.*=.*\{)" src/**/*.js)" && \
+echo "✓ Best practices checked"
+```
+
+### TypeScript (typescript.mdc)
+
+**Purpose**: TypeScript type system mastery and architectural patterns
+
+| Pattern | Quick Command | Use Case |
+|---------|---------------|----------|
+| **Type Safety** | `grep -n "any\|unknown" src/**/*.ts` | Type safety audit |
+| **Advanced Types** | `grep -E "(interface\|type\|extends)" src/**/*.ts` | Type definition review |
+| **Architecture** | `grep -n "implements\|abstract" src/**/*.ts` | Architecture patterns |
+
+#### 📋 TypeScript Quick Commands
+
+```bash
+# 🔍 TYPE SAFETY AUDIT
+echo "=== TypeScript Quality Check ===" && \
+echo "Type annotations: $(grep -c ":" src/**/*.ts)" && \
+echo "Interfaces: $(grep -c "interface" src/**/*.ts)" && \
+echo "Type aliases: $(grep -c "type.*=" src/**/*.ts)" && \
+echo "Any usage: $(grep -c "any" src/**/*.ts)" && \
+echo "✓ Type safety analyzed"
+
+# 🔍 ADVANCED PATTERNS
+echo "=== Advanced TypeScript ===" && \
+echo "Generics: $(grep -c -E "<.*>" src/**/*.ts)" && \
+echo "Conditional types: $(grep -c "extends.*?" src/**/*.ts)" && \
+echo "Mapped types: $(grep -c "\[.*in.*\]" src/**/*.ts)" && \
+echo "✓ Advanced patterns checked"
+
+# 🔍 ARCHITECTURE REVIEW
+echo "=== Architecture Check ===" && \
+echo "Classes: $(grep -c "class " src/**/*.ts)" && \
+echo "Interfaces: $(grep -c "interface " src/**/*.ts)" && \
+echo "Inheritance: $(grep -c "extends\|implements" src/**/*.ts)" && \
+echo "Decorators: $(grep -c "@" src/**/*.ts)" && \
+echo "✓ Architecture patterns analyzed"
+```
+
+### Language-Specific Workflow Combinations
+
+```bash
+# 🔄 FULL LANGUAGE AUDIT (JS + TS)
+echo "=== Full Language Audit ===" && \
+echo "JavaScript files: $(find src -name "*.js" | wc -l)" && \
+echo "TypeScript files: $(find src -name "*.ts" | wc -l)" && \
+echo "React components: $(find src -name "*.jsx" -o -name "*.tsx" | wc -l)" && \
+echo "Total LOC: $(find src -name "*.js" -o -name "*.ts" -o -name "*.jsx" -o -name "*.tsx" | xargs wc -l | tail -1)" && \
+echo "✓ Complete language audit done"
+
+# 🔄 MIGRATION READINESS
+echo "=== Migration Readiness ===" && \
+echo "JS to TS candidates: $(find src -name "*.js" | head -5)" && \
+echo "Type coverage: $(grep -c ":" src/**/*.ts)%" && \
+echo "Any types to fix: $(grep -c "any" src/**/*.ts)" && \
+echo "✓ Migration assessment complete"
+```
+
+---
+
 ## 🔄 Workflow Combinations
 
 ### 🚀 High-Efficiency Stack

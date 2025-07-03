@@ -2,7 +2,7 @@
 
 [![CI Status](https://github.com/DVC2/cursor_prompts/workflows/🚀%20CI%20-%20Cursor%20Rules%20Validation/badge.svg)](https://github.com/DVC2/cursor_prompts/actions)
 [![License](https://img.shields.io/badge/license-Public%20Domain-blue.svg)](LICENSE)
-[![MDC Rules](https://img.shields.io/badge/MDC%20Rules-9%20Active-green.svg)](.cursor/rules)
+[![MDC Rules](https://img.shields.io/badge/MDC%20Rules-11%20Active-green.svg)](.cursor/rules)
 [![Documentation](https://img.shields.io/badge/docs-Complete-brightgreen.svg)](docs/)
 [![Metrics Dashboard](https://img.shields.io/badge/📊-Metrics%20Dashboard-orange.svg)](tools/metrics-dashboard/index.html)
 
@@ -30,7 +30,11 @@ cursor_prompts/
 │   ├── ADR.mdc                # Architectural Decision Records automation
 │   ├── debugging.mdc          # Efficient debugging optimization
 │   ├── efficiency.mdc         # Tool call and resource optimization
-│   └── commonsense.mdc        # Best practices and mistake prevention
+│   ├── commonsense.mdc        # Best practices and mistake prevention
+│   ├── javascript.mdc         # JavaScript ES2022+ best practices
+│   ├── typescript.mdc         # TypeScript patterns and type system mastery
+│   ├── terminal.mdc           # Terminal operation optimization
+│   └── audit.mdc              # Comprehensive code quality assurance
 └── examples/                  # Usage guides and documentation
     └── use_cases/
         └── cursor-mdc-rules-guide.md # Comprehensive usage guide
@@ -40,6 +44,24 @@ cursor_prompts/
 
 ### Installation
 
+#### Option 1: Automated Installation (Recommended)
+Use the provided installation scripts for easy setup:
+
+```bash
+# Unix/macOS
+./scripts/install.sh
+
+# Windows PowerShell
+.\scripts\install.ps1
+```
+
+**Installation Tiers:**
+- **Essential**: Core rules for any project (5 rules)
+- **Language**: Essential + JavaScript/TypeScript patterns (7 rules)
+- **Team**: Language + team coordination (9 rules)
+- **All**: Complete feature set (11 rules)
+
+#### Option 2: Manual Installation
 1. **Copy to your project**:
    ```bash
    git clone https://github.com/DVC2/cursor_prompts.git
@@ -75,6 +97,15 @@ Check that rules are loaded:
 | **debugging.mdc** | Highly efficient debugging with minimal tool calls | Tool call optimization, pattern-based debugging, duplication prevention |
 | **efficiency.mdc** | Minimize premium tool calls while maintaining productivity | Command batching, file operation efficiency, resource conservation |
 | **commonsense.mdc** | Common sense development practices and mistake prevention | Best practice enforcement, mistake prevention, quality guidelines |
+| **terminal.mdc** | Terminal operation optimization for AI agents | Command chaining, output optimization, state verification |
+| **audit.mdc** | Comprehensive code quality assurance with surgical precision | Recursive audit loop, thinking protocols, surgical intervention |
+
+### Language-Specific Rules
+
+| Rule | Purpose | Key Features |
+|------|---------|--------------|
+| **javascript.mdc** | JavaScript ES2022+ best practices and modern patterns | Modern syntax, async patterns, performance optimization, functional programming |
+| **typescript.mdc** | TypeScript patterns and type system mastery | Type safety, advanced types, strict mode, architecture patterns |
 
 ## 📖 Understanding .mdc Files
 
@@ -134,6 +165,8 @@ alwaysApply: true
 
 - **[Complete Usage Guide](examples/use_cases/cursor-mdc-rules-guide.md)**: Comprehensive documentation for using these rules
 - **[Quick Reference Guide](docs/quick-reference.md)**: Fast commands and patterns with performance metrics
+- **[Language-Specific Rules Guide](docs/language-specific-rules.md)**: JavaScript and TypeScript rules documentation
+- **[Integration Guide](docs/integration-guide.md)**: How to combine rules for maximum efficiency
 - **[Troubleshooting Guide](docs/troubleshooting.md)**: Common issues and diagnostic procedures
 - **[Metrics Dashboard](tools/metrics-dashboard/index.html)**: Track your productivity improvements
 - **[Cursor Official Documentation](https://docs.cursor.com/context/rules)**: Official Cursor rules documentation
