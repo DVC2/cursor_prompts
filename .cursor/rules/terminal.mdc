@@ -1,9 +1,6 @@
 ---
 description: Terminal optimization guide for Claude agents - deterministic, efficient, and composable command patterns
-globs: **/*.sh, **/*.bash, **/Makefile, **/*.py, **/Dockerfile, **/.github/workflows/*.yml, **/*.ts, **/*.js, **/*.json
-alwaysApply: true
-priority: 9999
-agentVersion: 1.0
+alwaysApply: false
 ---
 
 # Claude Agent Terminal Command Patterns
